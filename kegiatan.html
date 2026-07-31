@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Praktikum Instalasi OS & Laboratorium Sistem - Cyber of Zone</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            cyber: {
+              black: '#08080a',
+              dark: '#101014',
+              gray: '#18181f',
+              border: '#262633',
+              accent: '#3b82f6',
+              green: '#22c55e',
+              warning: '#f59e0b',
+              danger: '#ef4444'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts & FontAwesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-cyber-black dark:text-gray-100 transition-colors duration-300 font-sans min-h-screen flex flex-col justify-between selection:bg-blue-500 selection:text-white">
+
+  <!-- ==================== HEADER NAVBAR ==================== -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-white/80 dark:bg-cyber-black/80 border-b border-gray-200 dark:border-cyber-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center space-x-3 font-mono font-bold text-lg group">
+        <div class="w-10 h-10 bg-black dark:bg-white text-white dark:text-black flex items-center justify-center rounded-lg shadow-md group-hover:scale-105 transition-transform">
+          <i class="fas fa-terminal text-sm"></i>
+        </div>
+        <span class="tracking-tight">CYBER<span class="text-blue-500">ZONE</span></span>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex space-x-8 text-sm font-medium">
+        <a href="index.html" class="hover:text-blue-500 transition-colors">Beranda</a>
+        <a href="profil.html" class="hover:text-blue-500 transition-colors">Profil</a>
+        <a href="materi.html" class="hover:text-blue-500 transition-colors">Materi TJKT</a>
+        <a href="kegiatan.html" class="text-blue-500 font-bold border-b-2 border-blue-500 pb-1">Instalasi OS</a>
+        <a href="quiz.html" class="hover:text-blue-500 transition-colors">Quiz</a>
+        <a href="kontak.html" class="hover:text-blue-500 transition-colors">Kontak</a>
+      </nav>
+
+      <div class="flex items-center space-x-4">
+        <button id="dark-mode-toggle" aria-label="Toggle Dark Mode" class="p-2 border rounded-lg border-gray-300 dark:border-cyber-border hover:bg-gray-100 dark:hover:bg-cyber-gray transition">
+          <i id="theme-icon" class="fas fa-sun text-yellow-400"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT HUB ==================== -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full">
+    
+    <!-- Hero Title -->
+    <div class="text-center max-w-3xl mx-auto mb-10" data-aos="fade-up">
+      <div class="inline-flex items-center space-x-2 px-3 py-1 bg-blue-500/10 text-blue-500 text-xs font-mono rounded-full border border-blue-500/20 mb-3">
+        <i class="fas fa-microchip"></i>
+        <span>MODUL PRAKTIKUM TJKT & ADMINISTRASI SISTEM</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold font-mono tracking-tight mb-4">
+        LABORATORIUM <span class="text-blue-500">INSTALASI OS</span>
+      </h1>
+      <p class="text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed">
+        Panduan teknis operasional terperinci mengenai persiapan media bootable, konfigurasi firmware BIOS/UEFI, alokasi partisi disk, deployment Sistem Operasi (Windows & Linux), hingga konfigurasi Dual Boot dan Virtualisasi.
+      </p>
+    </div>
+
+    <!-- Search & Filter Controls -->
+    <div class="mb-8 p-4 border border-gray-200 dark:border-cyber-border rounded-2xl bg-white dark:bg-cyber-dark shadow-sm">
+      <div class="flex flex-col md:flex-row gap-4 items-center justify-between mb-4">
+        <div class="relative w-full md:w-96">
+          <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+          <input type="text" id="os-search" oninput="filterTutorials()" placeholder="Cari materi instalasi (misal: Rufus, UEFI, Partition, Debian)..." class="w-full pl-9 pr-4 py-2 bg-gray-50 dark:bg-cyber-black border border-gray-300 dark:border-cyber-border rounded-xl text-sm focus:outline-none focus:border-blue-500 transition">
+        </div>
+        <div class="flex flex-wrap gap-2 w-full md:w-auto" id="category-filters">
+          <button onclick="filterCategory('all')" class="cat-btn px-3 py-1.5 rounded-lg text-xs font-mono font-semibold border border-blue-500 bg-blue-500 text-white transition">Semua Modul</button>
+          <button onclick="filterCategory('Persiapan')" class="cat-btn px-3 py-1.5 rounded-lg text-xs font-mono border border-gray-300 dark:border-cyber-border hover:bg-gray-100 dark:hover:bg-cyber-gray transition">Persiapan & Boot</button>
+          <button onclick="filterCategory('Windows')" class="cat-btn px-3 py-1.5 rounded-lg text-xs font-mono border border-gray-300 dark:border-cyber-border hover:bg-gray-100 dark:hover:bg-cyber-gray transition">Windows OS</button>
+          <button onclick="filterCategory('Linux')" class="cat-btn px-3 py-1.5 rounded-lg text-xs font-mono border border-gray-300 dark:border-cyber-border hover:bg-gray-100 dark:hover:bg-cyber-gray transition">Linux Distro</button>
+          <button onclick="filterCategory('Lanjutan')" class="cat-btn px-3 py-1.5 rounded-lg text-xs font-mono border border-gray-300 dark:border-cyber-border hover:bg-gray-100 dark:hover:bg-cyber-gray transition">Lanjutan & VM</button>
+        </div>
+      </div>
+
+      <!-- Quick Select Tabs Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2" id="os-tabs">
+        <!-- Generated Dynamically via JS -->
+      </div>
+    </div>
+
+    <!-- Active Tutorial Reader Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      
+      <!-- Main Reader Window (3 Cols) -->
+      <div class="lg:col-span-3 p-6 sm:p-10 border border-gray-200 dark:border-cyber-border rounded-2xl bg-white dark:bg-cyber-dark shadow-xl relative min-h-[600px] flex flex-col justify-between" id="os-reader">
+        
+        <div>
+          <!-- Top Metadata Bar -->
+          <div class="flex flex-wrap justify-between items-center border-b border-gray-200 dark:border-cyber-border pb-4 mb-6 gap-2">
+            <div class="flex items-center space-x-3">
+              <span id="os-step-indicator" class="font-mono text-xs font-bold text-blue-500 px-2.5 py-1 bg-blue-500/10 rounded border border-blue-500/20">
+                Modul 01 dari 11
+              </span>
+              <span id="os-badge" class="px-2.5 py-1 bg-green-500/10 text-green-500 text-xs font-mono font-semibold rounded border border-green-500/20">
+                Persiapan Boot
+              </span>
+            </div>
+            <div class="flex items-center space-x-4 text-xs text-gray-500 dark:text-gray-400 font-mono">
+              <span><i class="far fa-clock mr-1"></i> Est. Waktu: <strong id="os-time" class="text-gray-800 dark:text-gray-200">20 Menit</strong></span>
+              <span><i class="fas fa-layer-group mr-1"></i> Tingkat: <strong id="os-level" class="text-gray-800 dark:text-gray-200">Dasar</strong></span>
+            </div>
+          </div>
+
+          <!-- Main Header -->
+          <h2 id="os-title" class="text-2xl sm:text-4xl font-extrabold font-mono mb-6 text-gray-900 dark:text-white tracking-tight">
+            1. Membuat Bootable USB Flashdisk dengan Rufus
+          </h2>
+
+          <!-- Inject Content -->
+          <div id="os-body" class="text-gray-700 dark:text-gray-300 leading-relaxed text-sm sm:text-base space-y-6">
+            <!-- Content Injected via JavaScript -->
+          </div>
+        </div>
+
+        <!-- Reader Navigation Buttons -->
+        <div class="flex justify-between items-center border-t border-gray-200 dark:border-cyber-border pt-6 mt-10">
+          <button id="prev-os-btn" onclick="prevOS()" class="px-5 py-2.5 border border-gray-300 dark:border-cyber-border rounded-xl font-mono text-xs sm:text-sm font-semibold hover:bg-gray-100 dark:hover:bg-cyber-gray transition flex items-center space-x-2">
+            <i class="fas fa-chevron-left text-xs"></i>
+            <span>Modul Sebelumnya</span>
+          </button>
+
+          <button id="next-os-btn" onclick="nextOS()" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-mono text-xs sm:text-sm font-bold shadow-lg shadow-blue-500/20 transition flex items-center space-x-2">
+            <span>Modul Selanjutnya</span>
+            <i class="fas fa-chevron-right text-xs"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Sidebar Information & Navigation (1 Col) -->
+      <div class="space-y-6">
+        
+        <!-- Module Summary Box -->
+        <div class="p-6 border border-gray-200 dark:border-cyber-border rounded-2xl bg-white dark:bg-cyber-dark shadow-sm">
+          <h3 class="font-mono font-bold text-sm text-blue-500 mb-4 flex items-center">
+            <i class="fas fa-info-circle mr-2"></i>RINGKASAN TUGAS
+          </h3>
+          <div class="space-y-3 text-xs text-gray-600 dark:text-gray-400">
+            <div>
+              <span class="block font-semibold text-gray-800 dark:text-gray-200">Prasyarat Minimum:</span>
+              <p id="os-prereq">Flashdisk 8GB, File ISO, Akses Administrator PC.</p>
+            </div>
+            <hr class="border-gray-200 dark:border-cyber-border">
+            <div>
+              <span class="block font-semibold text-gray-800 dark:text-gray-200">Target Hasil Praktikum:</span>
+              <p id="os-target">Berhasil membuat installer OS yang siap di-booting dari USB Flashdisk.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Terminal Command Reference -->
+        <div class="p-6 border border-gray-200 dark:border-cyber-border rounded-2xl bg-white dark:bg-cyber-dark shadow-sm">
+          <h3 class="font-mono font-bold text-sm text-blue-500 mb-3 flex items-center">
+            <i class="fas fa-terminal mr-2"></i>BARIS PERINDAH DUKUNGAN
+          </h3>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mb-3">Perintah CLI penting terkait materi ini:</p>
+          <div class="bg-gray-900 text-green-400 p-3 rounded-xl font-mono text-xs overflow-x-auto border border-gray-800 shadow-inner" id="os-cli-box">
+            <code>diskpart<br>list disk<br>select disk 1<br>clean</code>
+          </div>
+        </div>
+
+        <!-- FAQ Accordion Widget -->
+        <div class="p-6 border border-gray-200 dark:border-cyber-border rounded-2xl bg-white dark:bg-cyber-dark shadow-sm">
+          <h3 class="font-mono font-bold text-sm text-blue-500 mb-3 flex items-center">
+            <i class="fas fa-question-circle mr-2"></i>FAQ & CATATAN PENTING
+          </h3>
+          <div class="space-y-2 text-xs">
+            <details class="p-2 border border-gray-200 dark:border-cyber-border rounded-lg">
+              <summary class="font-semibold cursor-pointer">Data di Flashdisk hilang?</summary>
+              <p class="mt-2 text-gray-500 dark:text-gray-400">Ya, format awal akan menghapus seluruh isi data pada flashdisk.</p>
+            </details>
+            <details class="p-2 border border-gray-200 dark:border-cyber-border rounded-lg">
+              <summary class="font-semibold cursor-pointer">Beda GPT & MBR?</summary>
+              <p class="mt-2 text-gray-500 dark:text-gray-400">GPT untuk firmware UEFI (Modern), MBR untuk Legacy BIOS (Lama).</p>
+            </details>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="border-t border-gray-200 dark:border-cyber-border py-8 text-center text-xs text-gray-500 bg-white dark:bg-cyber-black mt-16">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="font-mono">
+        <span class="font-bold text-gray-800 dark:text-gray-200">CYBER OF ZONE (COZ)</span> &copy; 2026. Modul Praktikum Kurikulum TJKT.
+      </div>
+      <div class="flex space-x-4">
+        <a href="index.html" class="hover:text-blue-500 transition">Beranda</a>
+        <a href="materi.html" class="hover:text-blue-500 transition">Materi TJKT</a>
+        <a href="kontak.html" class="hover:text-blue-500 transition">Kontak Admin</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="js/darkmode.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- Dynamic Content Logic & Database -->
+  <script>
+    const osTutorials = [
+      {
+        id: 1,
+        title: "1. Membuat Bootable USB Flashdisk dengan Rufus",
+        category: "Persiapan",
+        badge: "Persiapan Boot",
+        time: "15 Menit",
+        level: "Dasar",
+        prereq: "Flashdisk 8GB+, File ISO, Aplikasi Rufus versi 4.x+.",
+        target: "Media USB Flashdisk Installer yang siap digunakan di mode UEFI/Legacy.",
+        cli: "diskpart\nlist disk\nselect disk 1\nclean\nconvert gpt",
+        content: `
+          <p class="text-base leading-relaxed">
+            <strong>Rufus</strong> adalah utilitas portabel berlisensi <em>Open Source</em> yang dirancang untuk memformat dan membuat media instalasi Sistem Operasi (Bootable USB Drive) dari citra berkas ISO secara cepat, aman, dan efisien.
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+            <div class="p-4 bg-blue-500/5 border border-blue-500/20 rounded-xl">
+              <h4 class="font-mono font-bold text-sm text-blue-500 mb-2">// PERSYARATAN PERANGKAT HARDWARE:</h4>
+              <ul class="list-disc pl-5 text-xs space-y-1 text-gray-600 dark:text-gray-300">
+                <li>USB Flashdisk kapasitas minimal <strong>8 GB</strong> (opsional 16GB untuk Windows 11).</li>
+                <li>Port USB 3.0/3.1 (Warna biru) untuk kecepatan transfer data yang maksimal.</li>
+                <li>PC/Laptop OS Windows 8.1/10/11 dengan hak akses Administrator.</li>
+              </ul>
+            </div>
+            <div class="p-4 bg-amber-500/5 border border-amber-500/20 rounded-xl">
+              <h4 class="font-mono font-bold text-sm text-amber-500 mb-2">// PERSYARATAN SOFTWARE & ISO:</h4>
+              <ul class="list-disc pl-5 text-xs space-y-1 text-gray-600 dark:text-gray-300">
+                <li>Aplikasi Rufus versi terbaru (dapat diunduh dari situs resmi <code>rufus.ie</code>).</li>
+                <li>Master File ISO OS (Windows 10, Windows 11, Ubuntu, Debian, atau Kali Linux).</li>
+                <li>Aplikasi Checksum SHA-256 (opsional, untuk verifikasi keaslian ISO).</li>
+              </ul>
+            </div>
+          </div>
+
+          <h3 class="text-xl font-bold font-mono text-blue-500 mt-8 mb-4 border-b border-gray-200 dark:border-cyber-border pb-2">
+            PROSEDUR TAHAP DEMI TAHAP:
+          </h3>
+
+          <ol class="list-decimal pl-6 space-y-4 text-sm">
+            <li>
+              <strong>Pemasangan Flashdisk & Eksekusi Rufus:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Tancapkan USB Flashdisk pada port USB komputer. Klik kanan file aplikasi <code>rufus.exe</code> dan pilih <strong>Run as Administrator</strong>.</p>
+            </li>
+            <li>
+              <strong>Pemilihan Perangkat Target (Device Selection):</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Pada menu drop-down <em>Device</em>, pastikan Drive Flashdisk milikmu yang terpilih. Periksa kembali huruf drive (misal <code>E: [8 GB]</code>) untuk menghindari kesalahan format pada hard disk eksternal.</p>
+            </li>
+            <li>
+              <strong>Pemuatan Berkas ISO (Boot Selection):</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Pada opsi <em>Boot selection</em>, tentukan ke opsi <strong>Disk or ISO image</strong>, kemudian klik tombol <strong>SELECT</strong> di sebelah kanan. Telusuri folder penyimpanan dan pilih berkas ISO installer OS-mu.</p>
+            </li>
+            <li>
+              <strong>Penentuan Skema Partisi & Target System (Sangat Krusial):</strong>
+              <div class="p-3 my-2 bg-gray-100 dark:bg-cyber-black rounded-lg border border-gray-300 dark:border-cyber-border text-xs space-y-2">
+                <p><strong>Pilih GPT (GUID Partition Table):</strong> Jika komputer target menggunakan firmware motherboard modern bertipe <strong>UEFI</strong> dengan sistem penyimpanan NVMe / SSD SSD modern.</p>
+                <p><strong>Pilih MBR (Master Boot Record):</strong> Jika komputer target menggunakan BIOS lama (<em>Legacy BIOS / CSM Mode</em>) atau menggunakan harddisk SATA lama.</p>
+              </div>
+            </li>
+            <li>
+              <strong>Konfigurasi File System & Cluster Size:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Sistem berkas secara otomatis disesuaikan. Pilih <strong>NTFS</strong> untuk installer Windows modern, atau <strong>FAT32</strong> jika memproses installer Linux/UEFI murni.</p>
+            </li>
+            <li>
+              <strong>Proses Penulisan & Pemformatan:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Klik tombol <strong>START</strong> di bagian bawah. Jika muncul jendela peringatan konfirmasi penghapusan data (<em>"WARNING: ALL DATA ON DEVICE WILL BE DESTROYED"</em>), klik <strong>OK</strong>.</p>
+            </li>
+            <li>
+              <strong>Penyelesaian:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Tunggu hingga progress bar hijau mencapai angka 100% dan memunculkan status <strong>READY</strong>. Klik tombol <strong>CLOSE</strong> dan lakukan <em>Eject USB Drive</em> melalui System Tray.</p>
+            </li>
+          </ol>
+
+          <h3 class="text-xl font-bold font-mono text-blue-500 mt-8 mb-4 border-b border-gray-200 dark:border-cyber-border pb-2">
+            TABEL TROUBLESHOOTING RUFUS:
+          </h3>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs text-left border border-gray-200 dark:border-cyber-border rounded-lg overflow-hidden">
+              <thead class="bg-gray-100 dark:bg-cyber-black font-mono text-blue-500">
+                <tr>
+                  <th class="p-3 border-b border-gray-200 dark:border-cyber-border">Pesan Error / Masalah</th>
+                  <th class="p-3 border-b border-gray-200 dark:border-cyber-border">Penyebab Utama</th>
+                  <th class="p-3 border-b border-gray-200 dark:border-cyber-border">Solusi Perbaikan</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 dark:divide-cyber-border text-gray-600 dark:text-gray-300">
+                <tr>
+                  <td class="p-3 font-mono font-bold text-red-400">Error 0x00000005: Access Denied</td>
+                  <td class="p-3">Flashdisk terkunci antivirus atau dikontrol oleh Windows Defender.</td>
+                  <td class="p-3">Matikan sementara Antivirus / Real-time Protection, lalu jalankan Rufus kembali.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-mono font-bold text-red-400">ISO Image Undetected / Invalid</td>
+                  <td class="p-3">File ISO korupt saat proses unduhan dari internet.</td>
+                  <td class="p-3">Cek nilai MD5/SHA256 checksum file ISO, atau unduh ulang file master ISO.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-mono font-bold text-red-400">USB Write Protected Error</td>
+                  <td class="p-3">NAND Flash memory pada USB flashdisk rusak atau terkunci hardware.</td>
+                  <td class="p-3">Gunakan aplikasi Low-Level Format Tool atau ganti perangkat USB Flashdisk baru.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        `
+      },
+      {
+        id: 2,
+        title: "2. Pengaturan BIOS / UEFI Setup",
+        category: "Persiapan",
+        badge: "Sistem Dasar",
+        time: "20 Menit",
+        level: "Dasar",
+        prereq: "Komputer Target, Flashdisk Bootable yang terpasang.",
+        target: "Konfigurasi urutan booting (Boot Priority) diarahkan ke USB Storage Device.",
+        cli: "shutdown /r /fw /t 0",
+        content: `
+          <p class="text-base leading-relaxed">
+            <strong>BIOS (Basic Input/Output System)</strong> dan <strong>UEFI (Unified Extensible Firmware Interface)</strong> adalah antarmuka firmware tingkat rendah yang berfungsi menginisialisasi komponen hardware saat komputer pertama kali dinyalakan (proses POST / Power-On Self-Test) sebelum memuat Sistem Operasi.
+          </p>
+
+          <h3 class="text-xl font-bold font-mono text-blue-500 mt-6 mb-4 border-b border-gray-200 dark:border-cyber-border pb-2">
+            TABEL TOMBOL AKSES BIOS BERDASARKAN MERK KOMPUTER:
+          </h3>
+
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-xs text-left border border-gray-200 dark:border-cyber-border rounded-lg">
+              <thead class="bg-gray-100 dark:bg-cyber-black font-mono text-blue-500">
+                <tr>
+                  <th class="p-3 border-b">Merk Laptop / Motherboard</th>
+                  <th class="p-3 border-b">Tombol Masuk BIOS Setup</th>
+                  <th class="p-3 border-b">Tombol Quick Boot Menu</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 dark:divide-cyber-border text-gray-600 dark:text-gray-300 font-mono">
+                <tr><td class="p-2.5 font-bold">ASUS (ROG / TUF / Vivobook)</td><td class="p-2.5 text-blue-400">F2 / DELETE</td><td class="p-2.5 text-green-400">F8</td></tr>
+                <tr><td class="p-2.5 font-bold">Lenovo (Ideapad / ThinkPad)</td><td class="p-2.5 text-blue-400">F2 / Fn + F2 / Tombol Novo</td><td class="p-2.5 text-green-400">F12</td></tr>
+                <tr><td class="p-2.5 font-bold">Acer (Aspire / Nitro / Predator)</td><td class="p-2.5 text-blue-400">F2 / DELETE</td><td class="p-2.5 text-green-400">F12</td></tr>
+                <tr><td class="p-2.5 font-bold">HP (Hewlett-Packard / OMEN)</td><td class="p-2.5 text-blue-400">F10 / ESC</td><td class="p-2.5 text-green-400">F9</td></tr>
+                <tr><td class="p-2.5 font-bold">Dell (Latitude / Inspiron / XPS)</td><td class="p-2.5 text-blue-400">F2</td><td class="p-2.5 text-green-400">F12</td></tr>
+                <tr><td class="p-2.5 font-bold">MSI / Gigabyte Motherboard</td><td class="p-2.5 text-blue-400">DELETE</td><td class="p-2.5 text-green-400">F11 / F12</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="text-xl font-bold font-mono text-blue-500 mt-8 mb-4 border-b border-gray-200 dark:border-cyber-border pb-2">
+            PROSEDUR MENGATUR BOOT PRIORITY DI BIOS:
+          </h3>
+
+          <ol class="list-decimal pl-6 space-y-3 text-sm">
+            <li><strong>Persiapan Awal:</strong> Tancapkan USB Flashdisk installer pada port USB komputer dalam keadaan mati mati total (*Power Off*).</li>
+            <li><strong>Menyalakan Komputer & Akses BIOS:</strong> Tekan tombol Power, lalu secara bersamaan tekan tombol khusus BIOS (misal <code>F2</code> atau <code>DEL</code>) secara berulang-ulang dengan cepat hingga muncul tampilan antarmuka BIOS/UEFI.</li>
+            <li><strong>Navigasi ke Tab Boot:</strong> Gunakan tombol panah pada keyboard (atau mouse jika tampilan UEFI) untuk berpindah ke menu <strong>Boot</strong> / <strong>Boot Priority</strong>.</li>
+            <li><strong>Konfigurasi Urutan Boot (Boot Order):</strong> Cari opsi <strong>1st Boot Device / Boot Option #1</strong>, ubah nilainya menjadi nama USB Flashdisk milikmu (contoh: <code>UEFI: Sandisk Ultra 3.0</code>).</li>
+            <li><strong>Pengaturan Fitur Keamanan (Security Settings):</strong>
+              <ul class="list-disc pl-5 text-xs my-2 space-y-1">
+                <li><strong>Secure Boot:</strong> Ubah menjadi <em>Disabled</em> jika hendak melakukan instalasi Dual Boot Linux atau OS lama.</li>
+                <li><strong>SATA Controller Mode:</strong> Pastikan tersetting ke opsi <strong>AHCI</strong> (Bukan RAID / Intel VMD Option) agar SSD/HDD dapat dideteksi oleh installer Linux/Windows.</li>
+                <li><strong>Fast Boot:</strong> Set ke <em>Disabled</em> agar sistem firmware membaca seluruh port periferal USB saat inisialisasi.</li>
+              </ul>
+            </li>
+            <li><strong>Simpan dan Keluar:</strong> Tekan tombol <code>F10</code> (Save & Exit Changes), pilih opsi <strong>Yes</strong>. Komputer akan melakukan reboot otomatis dan memuat installer dari USB Flashdisk.</li>
+          </ol>
+        `
+      },
+      {
+        id: 3,
+        title: "3. Instalasi & Update Driver Komputer",
+        category: "Persiapan",
+        badge: "Hardware Support",
+        time: "25 Menit",
+        level: "Dasar",
+        prereq: "Akses Internet, Aplikasi Device Manager, Driver Pack Offline.",
+        target: "Seluruh periferal hardware teridentifikasi tanpa ikon peringatan warna kuning.",
+        cli: "dism /online /export-driver c:\\drivers_backup",
+        content: `
+          <p class="text-base leading-relaxed">
+            <strong>Driver Perangkat (Device Driver)</strong> adalah komponen perangkat lunak jembatan penerjemah yang memungkinkan Sistem Operasi berkomunikasi secara langsung dengan komponen perangkat keras fisik (seperti Kartu Grafis VGA, Chipset Motherboard, Soundcard, Wi-Fi, Bluetooth, dan Touchpad).
+          </p>
+
+          <h3 class="text-xl font-bold font-mono text-blue-500 mt-6 mb-4 border-b border-gray-200 dark:border-cyber-border pb-2">
+            1. IDENTIFIKASI DRIVER YANG BELUM TERPASANG
+          </h3>
+
+          <ol class="list-decimal pl-6 space-y-2 text-sm">
+            <li>Tekan kombinasi tombol <code>Win + X</code> pada keyboard, lalu pilih <strong>Device Manager</strong>.</li>
+            <li>Perhatikan daftar kategori perangkat. Jika terdapat ikon <strong>tanda seru kuning</strong> atau nama perangkat berlabel <em>Unknown Device / PCI Data Acquisition Controller</em>, artinya driver belum terpasang.</li>
+            <li>Klik kanan pada perangkat ber-tanda seru tersebut -> Pilih <strong>Properties</strong> -> Pilih tab <strong>Details</strong> -> Pada dropdown Property pilih <strong>Hardware Ids</strong>. Catat kode unik Vendor ID dan Device ID (contoh: <code>VEN_8086&DEV_15D2</code>).</li>
+          </ol>
+
+          <h3 class="text-xl font-bold font-mono text-blue-500 mt-8 mb-4 border-b border-gray-200 dark:border-cyber-border pb-2">
+            2. METODE INSTALASI DRIVER PERANGKAT
+          </h3>
+
+          <div class="space-y-4 my-4">
+            <div class="p-4 bg-gray-100 dark:bg-cyber-black border border-gray-300 dark:border-cyber-border rounded-xl">
+              <h4 class="font-bold text-blue-500 text-sm font-mono mb-1">Metode A: Windows Update (Otomatis & Direkomendasikan)</h4>
+              <p class="text-xs text-gray-600 dark:text-gray-400">
+                Buka <em>Settings -> Update & Security -> Windows Update</em>. Klik tombol <strong>Check for updates</strong>. Buka opsi <em>Advanced Options -> Optional Updates</em>, centang seluruh pembaruan driver hardware yang tersedia.
+              </p>
+            </div>
+
+            <div class="p-4 bg-gray-100 dark:bg-cyber-black border border-gray-300 dark:border-cyber-border rounded-xl">
+              <h4 class="font-bold text-blue-500 text-sm font-mono mb-1">Metode B: Unduhan Resmi Vendor OEM (Manual)</h4>
+              <p class="text-xs text-gray-600 dark:text-gray-400">
+                Kunjungi halaman portal resmi manufaktur laptop (misal: <em>support.asus.com</em>, <em>pcsupport.lenovo.com</em>, atau <em>geforce.com/drivers</em> untuk GPU Nvidia). Masukkan nomor Seri (*Serial Number*), unduh file installer eksekusi (<code>.exe</code> / <code>.msi</code>), lalu jalankan instalasi hingga selesai.
+              </p>
+            </div>
+
+            <div class="p-4 bg-gray-100 dark:bg-cyber-black border border-gray-300 dark:border-cyber-border rounded-xl">
+              <h4 class="font-bold text-blue-500 text-sm font-mono mb-1">Metode C: Backup & Restore Driver Via Command Prompt (CLI)</h4>
+              <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">
+                Untuk melakukan pencadangan seluruh driver yang terpasang di sistem sebelum di-format ulang, jalankan perintah CMD (Administrator):
+              </p>
+              <pre class="bg-black text-green-400 p-2.5 rounded font-mono text-xs">dism /online /export-driver c:\DriverBackup</pre>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 4,
+        title: "4. Instalasi Windows 10 Clean Install",
+        category: "Windows",
+        badge: "Microsoft Windows",
+        time: "30 Menit",
+        level: "Dasar",
+        prereq: "Flashdisk Installer Windows 10, Kapasitas Storage 64GB+.",
+        target: "Sistem Operasi Windows 10 Pro terpasang bersih pada drive sistem.",
+        cli: "oobe\\bypassnro",
+        content: `
+          <p class="text-base leading-relaxed">
+            Instalasi Bersih (*Clean Install*) Windows 10 adalah proses menghapus seluruh isi data pada partisi sistem lama dan menggantinya dengan berkas sistem operasi Windows 10 yang baru untuk mendapatkan kinerja PC yang optimal dan bebas virus.
+          </p>
+
+          <h3 class="text-xl font-bold font-mono text-blue-500 mt-6 mb-4 border-b border-gray-200 dark:border-cyber-border pb-2">
+            PANDUAN LANGKAH DEMI LANGKAH INSTALASI:
+          </h3>
+
+          <ol class="list-decimal pl-6 space-y-4 text-sm">
+            <li>
+              <strong>Awal Booting Installer:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Nyalakan PC dan masuk ke installer via Flashdisk. Pada layar pertama <em>Windows Setup</em>, tentukan pilihan:</p>
+              <ul class="list-disc pl-5 text-xs text-gray-500 dark:text-gray-400 my-1 space-y-1">
+                <li>Language to install: <strong>English (United States)</strong></li>
+                <li>Time and currency format: <strong>Indonesian (Indonesia)</strong></li>
+                <li>Keyboard or input method: <strong>US</strong></li>
+              </ul>
+              <p class="text-xs text-gray-500 dark:text-gray-400">Klik <strong>Next</strong> -> Klik tombol <strong>Install Now</strong>.</p>
+            </li>
+
+            <li>
+              <strong>Aktivasi Lisensi & Pemilihan Edisi:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Jika diminta memasukkan Product Key, klik opsi <strong>"I don't have a product key"</strong>. Pada jendela berikutnya, pilih edisi <strong>Windows 10 Pro 64-bit</strong> -> Centang persetujuan lisensi <em>I accept the license terms</em> -> Klik <strong>Next</strong>.</p>
+            </li>
+
+            <li>
+              <strong>Tipe Instalasi:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Pilih opsi pilihan kedua: <strong>Custom: Install Windows only (advanced)</strong>.</p>
+            </li>
+
+            <li>
+              <strong>Manajemen Partisi Hard Disk / SSD (Krusial):</strong>
+              <div class="p-3 bg-gray-100 dark:bg-cyber-black rounded-lg border border-gray-300 dark:border-cyber-border text-xs my-2 space-y-2">
+                <p><strong>Kasus Drive Baru (Unallocated Space):</strong> Klik pada <em>Unallocated Space</em> -> Klik tombol <strong>New</strong> -> Isikan ukuran partisi Drive C (contoh: <code>102400 MB</code> untuk 100GB) -> Klik <strong>Apply</strong> -> Klik <strong>OK</strong> saat Windows membuat partisi sistem cadangan otomatis (*System Reserved / EFI Partition*).</p>
+                <p><strong>Kasus Install Ulang Drive Lama:</strong> Pilih Partisi Sistem Lama (Drive C System) -> Klik <strong>Format</strong> -> Klik <strong>OK</strong>. Pastikan partisi lain tempat penyimpanan data pribadi (Drive D/E) tidak tersentuh!</p>
+              </div>
+              <p class="text-xs text-gray-500 dark:text-gray-400">Pilih partisi Primary target tempat Windows akan di-install, lalu klik <strong>Next</strong>.</p>
+            </li>
+
+            <li>
+              <strong>Proses Penyalinan Berkas (Copying Files):</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Tunggu proses penyalinan (*Getting files ready for installation*) berjalan dari 0% hingga 100%. Komputer akan melakukan restart otomatis. <strong>Cabut USB Flashdisk</strong> saat layar komputer mulai mati agar tidak masuk kembali ke awal instalasi.</p>
+            </li>
+
+            <li>
+              <strong>Konfigurasi Pengalaman Pengguna (OOBE Setup):</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Pilih region <strong>Indonesia</strong>, keyboard layout <strong>US</strong>. Saat diminta terhubung ke jaringan internet, pilih <em>"I don't have internet" -> "Continue with limited setup"</em> untuk membuat **Local Offline User Account** (Username & Password).</p>
+            </li>
+          </ol>
+        `
+      },
+      {
+        id: 5,
+        title: "5. Instalasi Windows 11 Clean Install",
+        category: "Windows",
+        badge: "Microsoft Windows",
+        time: "35 Menit",
+        level: "Menengah",
+        prereq: "Sistem UEFI, Modul TPM 2.0, Secure Boot Teraktifkan, SSD 64GB+.",
+        target: "Sistem Operasi Windows 11 Pro terpasang dengan fitur TPM 2.0 & Secure Boot.",
+        cli: "reg add HKLM\\SYSTEM\\Setup\\LabConfig /v BypassTPMCheck /t REG_DWORD /d 1",
+        content: `
+          <p class="text-base leading-relaxed">
+            <strong>Windows 11</strong> membutuhkan standar persyaratan hardware keamanan sistem yang lebih ketat dibanding versi sebelumnya, termasuk dukungan instruksi prosesor 64-bit modern, fitur **TPM 2.0 (Trusted Platform Module)**, serta firmware **UEFI Secure Boot**.
+          </p>
+
+          <div class="p-4 bg-blue-500/5 border border-blue-500/20 rounded-xl my-4">
+            <h4 class="font-mono font-bold text-xs text-blue-500 mb-2">// SPESIFIKASI SYSTEM MINIMUM WINDOWS 11:</h4>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs font-mono">
+              <div class="p-2 bg-white dark:bg-cyber-black rounded border border-gray-200 dark:border-cyber-border">CPU: 1GHz 2-Core 64-bit</div>
+              <div class="p-2 bg-white dark:bg-cyber-black rounded border border-gray-200 dark:border-cyber-border">RAM: Minimal 4 GB</div>
+              <div class="p-2 bg-white dark:bg-cyber-black rounded border border-gray-200 dark:border-cyber-border">Storage: 64 GB SSD/HDD</div>
+              <div class="p-2 bg-white dark:bg-cyber-black rounded border border-gray-200 dark:border-cyber-border">Firmware: UEFI & TPM 2.0</div>
+            </div>
+          </div>
+
+          <h3 class="text-xl font-bold font-mono text-blue-500 mt-6 mb-4 border-b border-gray-200 dark:border-cyber-border pb-2">
+            TAHAPAN INSTALASI & TRIK BYPASS TPM/RAM CHECK:
+          </h3>
+
+          <ol class="list-decimal pl-6 space-y-4 text-sm">
+            <li>
+              <strong>Masuk ke Installer Windows 11:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Booting komputer via USB Flashdisk Installer. Pilih bahasa dan format waktu, klik <strong>Install Now</strong>.</p>
+            </li>
+
+            <li>
+              <strong>Trik Bypass Persyaratan Hardware (Jika PC Lama / Tidak Kompatibel):</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Jika muncul pesan <em>"This PC can't run Windows 11"</em>, tekan kombinasi tombol <code>Shift + F10</code> di keyboard untuk membuka Command Prompt (CMD). Ketik <code>regedit</code> lalu tekan Enter. Buka direktori:</p>
+              <pre class="bg-black text-green-400 p-2.5 rounded font-mono text-xs my-2">HKEY_LOCAL_MACHINE\\SYSTEM\\Setup</pre>
+              <p class="text-xs text-gray-500 dark:text-gray-400">Buat Key baru bernama <code>LabConfig</code>. Di dalam Key tersebut, buat DWORD (32-bit) Value baru bernama <code>BypassTPMCheck</code>, <code>BypassSecureBootCheck</code>, dan <code>BypassRAMCheck</code>. Ubah nilai (*Value Data*) masing-masing menjadi <strong>1</strong>. Tutup CMD dan lanjutkan instalasi.</p>
+            </li>
+
+            <li>
+              <strong>Partisi Disk & Instalasi Sistem:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Pilih edisi <strong>Windows 11 Pro</strong> -> Pilih <em>Custom Installation</em> -> Tentukan partisi target SSD/NVMe -> Klik <strong>Next</strong>. Tunggu hingga proses penyalinan selesai dan PC melakukan restart.</p>
+            </li>
+
+            <li>
+              <strong>Layar Pengaturan OOBE Windows 11 & Bypass Akun Microsoft:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Pada layar pemilihan wilayah, jika kamu ingin menggunakan **Local Offline Account** tanpa harus masuk Akun Microsoft, tekan <code>Shift + F10</code>, lalu ketik perintah CLI berikut:</p>
+              <pre class="bg-black text-green-400 p-2.5 rounded font-mono text-xs my-2">oobe\bypassnro</pre>
+              <p class="text-xs text-gray-500 dark:text-gray-400">Komputer akan restart otomatis. Setelah menyala kembali, klik opsi <em>"I don't have internet"</em> untuk membuat nama user lokal biasa.</p>
+            </li>
+          </ol>
+        `
+      },
+      {
+        id: 6,
+        title: "6. Instalasi Linux Ubuntu Desktop",
+        category: "Linux",
+        badge: "Linux OS",
+        time: "25 Menit",
+        level: "Dasar",
+        prereq: "Flashdisk Installer Ubuntu 22.04 / 24.04 LTS ISO.",
+        target: "Sistem Operasi Linux Ubuntu Desktop terpasang lengkap dengan GUI GNOME.",
+        cli: "sudo apt update && sudo apt upgrade -y",
+        content: `
+          <p class="text-base leading-relaxed">
+            <strong>Ubuntu</strong> adalah salah satu distribusi (distro) sistem operasi Linux paling populer berbasis Debian yang dikembangkan oleh Canonical. Sangat handal, aman dari ancaman malware, dan gratis digunakan untuk kebutuhan harian maupun pemrograman.
+          </p>
+
+          <h3 class="text-xl font-bold font-mono text-blue-500 mt-6 mb-4 border-b border-gray-200 dark:border-cyber-border pb-2">
+            PROSEDUR INSTALASI UBUNTU DESKTOP:
+          </h3>
+
+          <ol class="list-decimal pl-6 space-y-4 text-sm">
+            <li>
+              <strong>Booting Live USB & Mode Trial:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Booting komputer via Flashdisk Installer Ubuntu. Pada menu awal GRUB bootloader, pilih menu <strong>Try or Install Ubuntu</strong>. Kamu akan masuk ke tampilan Desktop Live Session.</p>
+            </li>
+
+            <li>
+              <strong>Menjalankan Wizard Installer:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Klik ganda ikon shortcut <strong>"Install Ubuntu"</strong> yang ada di area Desktop. Pilih bahasa antarmuka <strong>English</strong> -> Klik <strong>Continue</strong>.</p>
+            </li>
+
+            <li>
+              <strong>Keyboard Layout & Tipe Instalasi Software:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Pilih tata letak keyboard <em>English (US)</em>. Pada halaman *Updates and other software*:</p>
+              <ul class="list-disc pl-5 text-xs text-gray-500 dark:text-gray-400 my-1 space-y-1">
+                <li>Pilih <strong>Normal Installation</strong> (termasuk aplikasi web browser, suite kantor LibreOffice, media player, dan utility tools).</li>
+                <li>Centang opsi <strong>"Download updates while installing Ubuntu"</strong> dan <strong>"Install third-party software for graphics and Wi-Fi hardware"</strong> (sangat penting untuk laptop bermerek GPU Nvidia).</li>
+              </ul>
+            </li>
+
+            <li>
+              <strong>Skema Partisi Penyimpanan (Installation Type):</strong>
+              <div class="p-3 bg-gray-100 dark:bg-cyber-black rounded-lg border border-gray-300 dark:border-cyber-border text-xs my-2 space-y-2">
+                <p><strong>Option A (Erase Disk and install Ubuntu):</strong> Menghapus seluruh isi hard disk dan membiarkan sistem membuat partisi otomatis.</p>
+                <p><strong>Option B (Something else):</strong> Membuat alokasi partisi kustom secara manual (disarankan untuk advanced user):</p>
+                <ul class="list-disc pl-5 space-y-1">
+                  <li>Partisi Root (<code>/</code>): Tipe Ext4, Alokasi 30.000 MB+</li>
+                  <li>Partisi Home (<code>/home</code>): Tipe Ext4, Alokasi sisa ruang data</li>
+                  <li>Partisi Swap: Tipe Swap Area, Alokasi sama dengan kapasitas RAM</li>
+                </ul>
+              </div>
+            </li>
+
+            <li>
+              <strong>Konfigurasi Lokasi & Kredensial User:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Pilih titik zona waktu lokasi pada peta interaktif (<strong>Jakarta / Indonesia Time</strong>). Masukkan nama lengkap, nama komputer (*hostname*), username login, dan kata sandi (*password*).</p>
+            </li>
+
+            <li>
+              <strong>Penyelesaian:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Tunggu proses penyalinan paket sistem hingga muncul jendela dialog *Installation Complete*. Klik <strong>Restart Now</strong>, cabut Flashdisk USB, lalu tekan tombol **ENTER**.</p>
+            </li>
+          </ol>
+        `
+      },
+      {
+        id: 7,
+        title: "7. Instalasi Linux Debian Server (CLI)",
+        category: "Linux",
+        badge: "Linux Server",
+        time: "30 Menit",
+        level: "Menengah",
+        prereq: "File ISO Debian Netinst / DVD ISO.",
+        target: "Server Linux Debian berbasis antarmuka teks (Command Line Interface / CLI).",
+        cli: "ip a\ncat /etc/network/interfaces\nsystemctl status ssh",
+        content: `
+          <p class="text-base leading-relaxed">
+            <strong>Debian Server</strong> adalah landasan infrastruktur jaringan skala industri yang terkenal dengan kestabilan, tingkat keamanan tinggi, dan efisiensi konsumsi memori RAM karena dioperasikan sepenuhnya melalui baris perintah antarmuka teks (CLI).
+          </p>
+
+          <h3 class="text-xl font-bold font-mono text-blue-500 mt-6 mb-4 border-b border-gray-200 dark:border-cyber-border pb-2">
+            TAHAPAN INSTALASI DEBIAN MODE TEKS:
+          </h3>
+
+          <ol class="list-decimal pl-6 space-y-4 text-sm">
+            <li>
+              <strong>Awal Booting & Pilihan Installer:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Booting installer Debian via USB. Pada menu antarmuka awal, pilih menu <strong>Install</strong> (Gunakan tombol panah keyboard dan tekan Enter. Jangan memilih Graphical Install untuk menghemat memori server).</p>
+            </li>
+
+            <li>
+              <strong>Pengaturan Bahasa, Lokasi, & Kebiasaan Lokal:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Select Language: <strong>English</strong> -> Select Location: <strong>other -> Asia -> Indonesia</strong>. Configure Locales: <strong>en_US.UTF-8</strong> -> Keymap: <strong>American English</strong>.</p>
+            </li>
+
+            <li>
+              <strong>Konfigurasi Network, Hostname, & Domain:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Masukkan nama host server (contoh Hostname: <code>srv-cyberzone</code>) dan nama domain privat jaringan (contoh Domain name: <code>coz.internal</code>).</p>
+            </li>
+
+            <li>
+              <strong>Konfigurasi Akun Administrator (Root) & User Biasa:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Masukkan kata sandi untuk akun administrator tertinggi (<strong>Root Password</strong>). Buat nama lengkap user baru, username non-root (contoh: <code>sysadmin</code>), beserta password-nya.</p>
+            </li>
+
+            <li>
+              <strong>Partisi Hard Disk Server (Partitioning Scheme):</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Pilih metode partisi <strong>Guided - use entire disk</strong> -> Pilih drive disk target -> Pilih pola struktur partisi <strong>All files in one partition</strong> (atau pisahkan partisi <code>/var</code> dan <code>/tmp</code> untuk keamanan tingkat tinggi). Pilih <em>Finish partitioning and write changes to disk</em> -> Pilih **Yes**.</p>
+            </li>
+
+            <li>
+              <strong>Software Selection (Sangat Krusial):</strong>
+              <div class="p-3 my-2 bg-red-500/5 border border-red-500/20 rounded-lg text-xs">
+                <p class="font-bold text-red-500 mb-1 font-mono">// PERHATIAN PADA PEMILIHAN SOFTWARE:</p>
+                <p>Pada daftar perangkat lunak yang muncul, gunakan tombol **SPASI** untuk **MENGHAPUS TANDA CENTANG (*UNCHECK*)** pada opsi <em>Debian desktop environment</em> dan <em>GNOME</em>.</p>
+                <p class="mt-1">Pastikan yang tercentang hanya opsi <strong>SSH server</strong> dan <strong>standard system utilities</strong> agar Debian diinstal murni ber-mode CLI (tanpa GUI desktop).</p>
+              </div>
+            </li>
+
+            <li>
+              <strong>Pemasangan GRUB Boot Loader:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Saat ditanya *Install the GRUB boot loader to your primary drive?*, pilih <strong>Yes</strong>, kemudian pilih jalur perangkat disk utama (contoh: <code>/dev/sda</code> atau <code>/dev/nvme0n1</code>). Klik **Continue** hingga proses instalasi selesai sepenuhnya.</p>
+            </li>
+          </ol>
+        `
+      },
+      {
+        id: 8,
+        title: "8. Instalasi Linux Kali Linux",
+        category: "Linux",
+        badge: "Cyber Security",
+        time: "35 Menit",
+        level: "Lanjutan",
+        prereq: "File ISO Kali Linux Installer 64-Bit, Storage 40GB+.",
+        target: "Sistem operasi pengujian keamanan siber dengan ratusan tools pen-testing.",
+        cli: "sudo apt update && sudo apt install -y kali-linux-everything",
+        content: `
+          <p class="text-base leading-relaxed">
+            <strong>Kali Linux</strong> adalah distribusi Linux turunan Debian yang dirancang khusus untuk kebutuhan Forensik Digital dan Pengujian Penetrasi Keamanan Siber (*Penetration Testing* / Ethical Hacking).
+          </p>
+
+          <h3 class="text-xl font-bold font-mono text-blue-500 mt-6 mb-4 border-b border-gray-200 dark:border-cyber-border pb-2">
+            PROSEDUR INSTALASI GRAPHICAL INSTALL KALI LINUX:
+          </h3>
+
+          <ol class="list-decimal pl-6 space-y-4 text-sm">
+            <li>
+              <strong>Memulai Mode Installer Grafis:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Booting installer via USB. Pada antarmuka GRUB Kali Linux, pilih menu <strong>Graphical Install</strong>.</p>
+            </li>
+
+            <li>
+              <strong>Pengaturan Bahasa & Regional:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Pilih Bahasa: <em>English</em>, Region: <em>United States</em>, Keymap Keyboard: <em>American English</em>.</p>
+            </li>
+
+            <li>
+              <strong>Pengaturan Identitas Jaringan & User:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Isikan Hostname (default: <code>kali</code>). Kosongkan domain name. Masukkan nama lengkap user dan username non-root (contoh: <code>cybersec</code>) beserta password-nya.</p>
+            </li>
+
+            <li>
+              <strong>Partisi Disk Penyimpanan:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Pilih <strong>Guided - use entire disk</strong> -> Pilih drive target -> Pilih <em>All files in one partition</em> -> Pilih <em>Finish partitioning and write changes to disk</em> -> Pilih **Yes** untuk konfirmasi format disk.</p>
+            </li>
+
+            <li>
+              <strong>Software Selection & Desktop Environment:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Pada tampilan menu pemulihan paket *Software selection*, pilih antarmuka desktop bawaan **XFCE** (sangat ringan dan stabil). Biarkan opsi paket tools *default top 10 tools* dan *recommended tools* tetap tercentang.</p>
+            </li>
+
+            <li>
+              <strong>Pemasangan Bootloader & Penyelesaian:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Pilih **Yes** saat ditanya pemasangan GRUB bootloader ke drive utama. Setelah proses selesai, klik **Continue** untuk melakukan restart sistem dan login ke akun Kali Linux baru milikmu.</p>
+            </li>
+          </ol>
+        `
+      },
+      {
+        id: 9,
+        title: "9. Virtual Machine: VirtualBox & VMware",
+        category: "Lanjutan",
+        badge: "Virtualization",
+        time: "30 Menit",
+        level: "Menengah",
+        prereq: "RAM Komputer Minimal 8GB, Fitur CPU Virtualization (VT-x / AMD-V) Active.",
+        target: "Mesin Virtual (VM) terkonfigurasi dan berjalan lancar di dalam Host OS.",
+        cli: "VBoxManage list vms",
+        content: `
+          <p class="text-base leading-relaxed">
+            <strong>Virtualisasi</strong> adalah teknologi yang memungkinkan kamu membuat dan menjalankan beberapa komputer simulasi (*Guest Virtual Machine*) secara terisolasi di dalam satu perangkat fisik utama (*Host OS*) menggunakan bantuan software Hypervisor Type-2 seperti Oracle VirtualBox atau VMware Workstation.
+          </p>
+
+          <h3 class="text-xl font-bold font-mono text-blue-500 mt-6 mb-4 border-b border-gray-200 dark:border-cyber-border pb-2">
+            LANGKAH KONFIGURASI MESIN VIRTUAL DI ORACLE VIRTUALBOX:
+          </h3>
+
+          <ol class="list-decimal pl-6 space-y-4 text-sm">
+            <li>
+              <strong>Membuat Mesin Virtual Baru (New VM):</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Buka aplikasi Oracle VirtualBox, lalu klik ikon tombol **New** (Baru) di toolbar atas.</p>
+            </li>
+
+            <li>
+              <strong>Inisialisasi Nama & File ISO:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Isikan nama VM (misal: <code>Debian-Server-Lab</code>). Pada opsi *ISO Image*, telusuri dan muat berkas ISO OS yang ingin dipasang.</p>
+            </li>
+
+            <li>
+              <strong>Alokasi Sumber Daya RAM & Processor (Hardware Settings):</strong>
+              <div class="p-3 bg-gray-100 dark:bg-cyber-black rounded-lg border border-gray-300 dark:border-cyber-border text-xs my-2 space-y-1">
+                <p><strong>Base Memory (RAM):</strong> Alokasikan kapasitas RAM (misal 2048 MB / 2GB untuk Linux Server CLI, atau 4096 MB / 4GB untuk OS Windows/Ubuntu GUI).</p>
+                <p><strong>Processors (CPU):</strong> Berikan minimal 2 Core CPU. Pastikan tidak menggeser slider hingga memasuki area batas warna merah.</p>
+              </div>
+            </li>
+
+            <li>
+              <strong>Membuat Hard Disk Virtual (Virtual Hard Disk):</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Pilih <strong>Create a Virtual Hard Disk Now</strong>. Tentukan ukuran disk (contoh: 20 GB - 50 GB) dengan alokasi tipe file <em>VDI (VirtualBox Disk Image) - Dynamically Allocated</em>. Klik **Finish**.</p>
+            </li>
+
+            <li>
+              <strong>Konfigurasi Mode Adapter Jaringan (Network Setting):</strong>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs my-2">
+                <div class="p-2 border border-gray-200 dark:border-cyber-border rounded"><strong>NAT:</strong> Akses internet terisolasi via IP Komputer Host.</div>
+                <div class="p-2 border border-gray-200 dark:border-cyber-border rounded"><strong>Bridged Adapter:</strong> VM mendapatkan IP Address terpisah langsung dari Router Wi-Fi/LAN asli.</div>
+                <div class="p-2 border border-gray-200 dark:border-cyber-border rounded"><strong>Host-Only Adapter:</strong> Jaringan privat lokal khusus antara PC Host dan VM saja.</div>
+              </div>
+            </li>
+
+            <li>
+              <strong>Menjalankan Mesin Virtual:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Klik tombol **Start** (Mulai) ber-ikon panah hijau di menu atas untuk menyalakan mesin virtual dan memuat wizard instalasi OS.</p>
+            </li>
+          </ol>
+        `
+      },
+      {
+        id: 10,
+        title: "10. Mengaktifkan Windows Sandbox & Hyper-V",
+        category: "Lanjutan",
+        badge: "Isolated OS",
+        time: "15 Menit",
+        level: "Menengah",
+        prereq: "Windows 10/11 Pro/Enterprise/Education, Fitur CPU Virtualization Enabled.",
+        target: "Lingkungan Windows Sandbox terisolasi untuk pengujian aplikasi yang aman.",
+        cli: "Enable-WindowsOptionalFeature -Online -FeatureName \"Containers-DisposableClientVM\" -All",
+        content: `
+          <p class="text-base leading-relaxed">
+            <strong>Windows Sandbox</strong> menyediakan lingkungan desktop virtual sementara bertipe terisolasi aman (*sandboxed*) yang terintegrasi secara langsung di Windows 10/11 Pro untuk menjalankan dan menguji aplikasi tak dikenal atau berkas mencurigakan tanpa berisiko menginfeksi OS utama.
+          </p>
+
+          <h3 class="text-xl font-bold font-mono text-blue-500 mt-6 mb-4 border-b border-gray-200 dark:border-cyber-border pb-2">
+            LANGKAH AKTIVASI WINDOWS SANDBOX VIA GUI & POWERSHELL:
+          </h3>
+
+          <ol class="list-decimal pl-6 space-y-4 text-sm">
+            <li>
+              <strong>Cek Status Virtualisasi CPU:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Buka <em>Task Manager</em> (<code>Ctrl + Shift + Esc</code>) -> Klik tab <strong>Performance</strong> -> Klik menu <strong>CPU</strong>. Pastikan pada bagian bawah status tertulis <strong>Virtualization: Enabled</strong>.</p>
+            </li>
+
+            <li>
+              <strong>Metode A: Melalui Windows Features (GUI):</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Tekan kombinasi tombol <code>Win + R</code>, ketik <code>optionalfeatures.exe</code>, lalu tekan Enter. Scroll ke bawah pada daftar fitur, berikan tanda centang pada opsi <strong>Windows Sandbox</strong> dan <strong>Hyper-V</strong> -> Klik <strong>OK</strong>.</p>
+            </li>
+
+            <li>
+              <strong>Metode B: Melalui PowerShell Administrator (CLI):</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Buka PowerShell sebagai Administrator, jalankan perintah baris berikut:</p>
+              <pre class="bg-black text-green-400 p-2.5 rounded font-mono text-xs my-2">Enable-WindowsOptionalFeature -Online -FeatureName "Containers-DisposableClientVM" -All</pre>
+            </li>
+
+            <li>
+              <strong>Restart Komputer & Menjalankan Sandbox:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Tunggu proses pemasangan komponen berkas selesai, lalu klik tombol **Restart Now**. Setelah PC menyala kembali, buka Start Menu, cari kata kunci **Windows Sandbox**, lalu klik kanan dan pilih **Run as Administrator**.</p>
+            </li>
+          </ol>
+        `
+      },
+      {
+        id: 11,
+        title: "11. Konfigurasi Dual Boot (Windows + Linux)",
+        category: "Lanjutan",
+        badge: "Advanced OS",
+        time: "45 Menit",
+        level: "Lanjutan",
+        prereq: "Windows 10/11 Terpasang, USB Bootable Linux, Ruang Storage Kosong 40GB+.",
+        target: "Dua OS terpasang dalam satu drive fisik dengan menu pemilih sistem GRUB.",
+        cli: "sudo update-grub\nsudo os-prober",
+        content: `
+          <p class="text-base leading-relaxed">
+            Konfigurasi <strong>Dual Boot</strong> memungkinkan kamu menginstal dan menjalankan dua Sistem Operasi berbeda (seperti Windows 11 dan Ubuntu Linux) dalam satu perangkat PC/Laptop fisik, di mana pengguna dapat memilih OS yang ingin diaktifkan melalui menu GRUB Bootloader saat komputer dihidupkan.
+          </p>
+
+          <h3 class="text-xl font-bold font-mono text-blue-500 mt-6 mb-4 border-b border-gray-200 dark:border-cyber-border pb-2">
+            TAHAP 1: PERSIAPAN PARTISI KOSONG DI WINDOWS
+          </h3>
+
+          <ol class="list-decimal pl-6 space-y-3 text-sm">
+            <li>Buka utilitas *Disk Management* di Windows dengan menekan kombinasi tombol <code>Win + X</code> -> pilih <strong>Disk Management</strong>.</li>
+            <li>Cari partisi drive data yang memiliki sisa ruang kosong besar (misal Drive C atau D). Klik kanan pada partisi tersebut lalu pilih <strong>Shrink Volume</strong>.</li>
+            <li>Masukkan jumlah alokasi ruang yang ingin dipotong untuk sistem Linux (minimal 40.000 MB / 40 GB) -> Klik tombol <strong>Shrink</strong>.</li>
+            <li>Sekarang akan muncul blok area baru berwarna hitam berlabel **Unallocated Space**. Biarkan area ini tetap kosong dan jangan diformat!</li>
+            <li><strong>Matikan Fitur Fast Startup:</strong> Buka *Control Panel -> Power Options -> Choose what the power buttons do*, klik *Change settings that are currently unavailable*, hapus centang pada <strong>Turn on fast startup</strong> -> Klik *Save changes*.</li>
+          </ol>
+
+          <h3 class="text-xl font-bold font-mono text-blue-500 mt-8 mb-4 border-b border-gray-200 dark:border-cyber-border pb-2">
+            TAHAP 2: INSTALASI LINUX & SKEMA PARTISI MANUAL
+          </h3>
+
+          <ol class="list-decimal pl-6 space-y-3 text-sm">
+            <li>Tancapkan USB Flashdisk Installer Linux (Ubuntu/Kali), restart komputer, dan booting melalui Flashdisk tersebut.</li>
+            <li>Saat memasuki langkah pilihan *Installation Type*, **WAJIB MENUMPANG OPSI:** <strong>Something else</strong> (Manual Partitioning) -> Klik <strong>Continue</strong>.</li>
+            <li>Cari baris area kosong bernama **free space / unallocated space** yang telah kita alokasikan di tahap pertama tadi.</li>
+            <li><strong>Membuat Partisi Root (<code>/</code>):</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 pl-3 border-l-2 border-blue-500">Klik tombol **+** -> Size: 35000 MB -> Type: Primary -> Location: Beginning of this space -> Use as: Ext4 journaling file system -> Mount point: pilih **<code>/</code>** -> Klik OK.</p>
+            </li>
+            <li><strong>Membuat Partisi Swap:</strong>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 pl-3 border-l-2 border-blue-500">Klik tombol **+** pada sisa area free space -> Size: Sisa Kapasitas (2048 MB - 4096 MB) -> Type: Logical -> Use as: pilih **swap area** -> Klik OK.</p>
+            </li>
+            <li><strong>Lokasi Boot Loader Installation:</strong> Pastikan target pada dropdown *Device for boot loader installation* diarahkan ke drive fisik utama tempat EFI Partition Windows berada (misal: <code>/dev/sda</code> atau <code>/dev/nvme0n1</code>).</li>
+            <li>Klik tombol **Install Now** dan selesaikan seluruh instruksi instalasi. Saat komputer di-restart, antarmuka menu **GRUB Bootloader** akan muncul otomatis menawarkan pilihan opsi booting masuk ke **Ubuntu** atau **Windows Boot Manager**.</li>
+          </ol>
+        `
+      }
+    ];
+
+    let currentOSTab = 0;
+    let filteredTutorials = [...osTutorials];
+
+    // Render Tab List
+    function renderOSTabs() {
+      const container = document.getElementById('os-tabs');
+      container.innerHTML = '';
+
+      filteredTutorials.forEach((item) => {
+        const indexInMain = osTutorials.findIndex(t => t.id === item.id);
+        const btn = document.createElement('button');
+        const isActive = (indexInMain === currentOSTab);
+
+        btn.className = `p-2 rounded-xl text-xs font-mono border text-left transition flex items-center justify-between ${
+          isActive 
+            ? 'bg-blue-600 text-white border-blue-600 font-bold shadow-md' 
+            : 'border-gray-200 dark:border-cyber-border hover:bg-gray-100 dark:hover:bg-cyber-gray text-gray-700 dark:text-gray-300'
+        }`;
+
+        btn.innerHTML = `
+          <span class="truncate">${item.id}. ${item.title.split('. ')[1]}</span>
+          ${isActive ? '<i class="fas fa-chevron-right text-[10px]"></i>' : ''}
+        `;
+
+        btn.onclick = () => loadOSTutorial(indexInMain);
+        container.appendChild(btn);
+      });
+    }
+
+    // Load Tutorial Data to Reader
+    function loadOSTutorial(index) {
+      if (index < 0 || index >= osTutorials.length) return;
+      
+      currentOSTab = index;
+      const data = osTutorials[index];
+
+      document.getElementById('os-step-indicator').textContent = `Modul ${String(data.id).padStart(2, '0')} dari ${osTutorials.length}`;
+      document.getElementById('os-badge').textContent = data.badge;
+      document.getElementById('os-time').textContent = data.time;
+      document.getElementById('os-level').textContent = data.level;
+      document.getElementById('os-title').textContent = data.title;
+      document.getElementById('os-body').innerHTML = data.content;
+
+      document.getElementById('os-prereq').textContent = data.prereq;
+      document.getElementById('os-target').textContent = data.target;
+      document.getElementById('os-cli-box').innerHTML = `<code>${data.cli.replace(/\n/g, '<br>')}</code>`;
+
+      // Update Prev Button
+      const prevBtn = document.getElementById('prev-os-btn');
+      prevBtn.disabled = (index === 0);
+      prevBtn.style.opacity = (index === 0) ? '0.4' : '1';
+
+      // Update Next Button
+      const nextBtn = document.getElementById('next-os-btn');
+      if (index === osTutorials.length - 1) {
+        nextBtn.innerHTML = `<span>Selesai Praktikum</span> <i class="fas fa-check text-xs"></i>`;
+      } else {
+        nextBtn.innerHTML = `<span>Modul Selanjutnya</span> <i class="fas fa-chevron-right text-xs"></i>`;
+      }
+
+      renderOSTabs();
+    }
+
+    // Next Button Handler
+    function nextOS() {
+      if (currentOSTab < osTutorials.length - 1) {
+        loadOSTutorial(currentOSTab + 1);
+        window.scrollTo({ top: 220, behavior: 'smooth' });
+      } else {
+        alert("Selamat! Kamu telah menyelesaikan seluruh rangkaian 11 modul laboratorium instalasi OS.");
+      }
+    }
+
+    // Prev Button Handler
+    function prevOS() {
+      if (currentOSTab > 0) {
+        loadOSTutorial(currentOSTab - 1);
+        window.scrollTo({ top: 220, behavior: 'smooth' });
+      }
+    }
+
+    // Search Tutorial Function
+    function filterTutorials() {
+      const query = document.getElementById('os-search').value.toLowerCase();
+      filteredTutorials = osTutorials.filter(item => 
+        item.title.toLowerCase().includes(query) ||
+        item.content.toLowerCase().includes(query) ||
+        item.category.toLowerCase().includes(query)
+      );
+      renderOSTabs();
+    }
+
+    // Filter Category Function
+    function filterCategory(cat) {
+      document.querySelectorAll('.cat-btn').forEach(btn => {
+        btn.classList.remove('bg-blue-500', 'text-white');
+        btn.classList.add('border-gray-300', 'dark:border-cyber-border');
+      });
+
+      event.target.classList.add('bg-blue-500', 'text-white');
+
+      if (cat === 'all') {
+        filteredTutorials = [...osTutorials];
+      } else {
+        filteredTutorials = osTutorials.filter(item => item.category === cat);
+      }
+      renderOSTabs();
+    }
+
+    // Initialize Page
+    document.addEventListener('DOMContentLoaded', () => {
+      AOS.init({ duration: 800, once: true });
+      loadOSTutorial(0);
+    });
+  </script>
+
+</body>
+</html>

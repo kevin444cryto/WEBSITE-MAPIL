@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Materi TJKT - Cyber of Zone</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: { cyber: { black: '#0a0a0c', dark: '#121216', gray: '#1e1e24' } }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-cyber-black dark:text-white transition-colors duration-300 font-sans min-h-screen flex flex-col justify-between">
+
+  <!-- Header Navbar -->
+  <header class="sticky top-0 z-40 backdrop-blur-md bg-white/80 dark:bg-cyber-black/80 border-b border-gray-200 dark:border-white/10">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center space-x-3 font-mono font-bold text-lg">
+        <div class="w-10 h-10 bg-black dark:bg-white text-white dark:text-black flex items-center justify-center rounded">COZ</div>
+        <span>CYBER<span class="text-blue-500">ZONE</span></span>
+      </a>
+      <nav class="hidden md:flex space-x-6 text-sm font-medium">
+        <a href="index.html" class="hover:text-blue-500">Beranda</a>
+        <a href="profil.html" class="hover:text-blue-500">Profil</a>
+        <a href="materi.html" class="text-blue-500 font-semibold">Materi TJKT</a>
+        <a href="kegiatan.html" class="hover:text-blue-500">Instalasi OS</a>
+        <a href="quiz.html" class="hover:text-blue-500">Quiz</a>
+        <a href="kontak.html" class="hover:text-blue-500">Kontak</a>
+      </nav>
+      <div class="flex items-center space-x-3">
+        <button id="dark-mode-toggle" class="p-2 border rounded-lg border-gray-300 dark:border-white/20"><i id="theme-icon" class="fas fa-sun text-yellow-400"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Materi Reader -->
+  <main class="max-w-5xl mx-auto px-4 py-10 flex-grow w-full">
+    
+    <div class="text-center mb-8" data-aos="fade-up">
+      <h1 class="text-3xl sm:text-4xl font-extrabold font-mono mb-2">// MODUL KURIKULUM TJKT LENGKAP</h1>
+      <p class="text-gray-500 dark:text-gray-400 text-sm">Panduan Pembelajaran Mendalam Fase E & Fase F (Kelas 10, 11, & 12 SMK)</p>
+    </div>
+
+    <!-- Quick Index Selector -->
+    <div class="mb-8 p-4 border border-gray-200 dark:border-white/10 rounded-xl bg-white/50 dark:bg-cyber-dark/50 overflow-x-auto">
+      <p class="text-xs font-mono font-bold text-gray-400 mb-3">DAFTAR MODUL MATERI:</p>
+      <div class="flex flex-wrap gap-2" id="materi-tabs">
+        <!-- Generates Tab Buttons Dynamic -->
+      </div>
+    </div>
+
+    <!-- Active Material Reader Container -->
+    <div class="p-6 sm:p-8 border border-gray-200 dark:border-white/10 rounded-xl bg-white/50 dark:bg-cyber-dark/50 shadow-xl relative" id="materi-reader">
+      
+      <!-- Indicator Header -->
+      <div class="flex justify-between items-center border-b border-gray-200 dark:border-white/10 pb-4 mb-6">
+        <span id="materi-step-indicator" class="font-mono text-xs font-bold text-blue-500">Materi 1 dari 13</span>
+        <span id="materi-badge" class="px-3 py-1 bg-blue-500/10 text-blue-400 text-xs font-mono rounded border border-blue-500/20">Fase E</span>
+      </div>
+
+      <!-- Title & Content -->
+      <h2 id="materi-title" class="text-2xl sm:text-3xl font-extrabold font-mono mb-6 text-blue-500">Judul Materi</h2>
+      <div id="materi-body" class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 leading-relaxed space-y-4 text-sm sm:text-base mb-8">
+        <!-- Body Content injected via JS -->
+      </div>
+
+      <!-- Footer Navigation Buttons -->
+      <div class="flex justify-between items-center border-t border-gray-200 dark:border-white/10 pt-6">
+        <button id="prev-materi-btn" onclick="prevMateri()" class="px-5 py-2.5 border border-gray-300 dark:border-white/20 rounded font-mono text-sm hover:bg-gray-100 dark:hover:bg-white/10 transition flex items-center space-x-2">
+          <i class="fas fa-arrow-left text-xs"></i>
+          <span>Sebelumnya</span>
+        </button>
+
+        <button id="next-materi-btn" onclick="nextMateri()" class="px-6 py-2.5 bg-black dark:bg-white text-white dark:text-black rounded font-mono text-sm font-bold hover:opacity-90 transition flex items-center space-x-2">
+          <span>Materi Selanjutnya</span>
+          <i class="fas fa-arrow-right text-xs"></i>
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="border-t border-gray-200 dark:border-white/10 py-6 text-center text-sm text-gray-500">
+    © 2026 Cyber of Zone (COZ). All rights reserved.
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="js/darkmode.js"></script>
+  <script src="js/main.js"></script>
+  
+  <script>
+    // Database Kurikulum TJKT Terinci dan Mendalam
+    const materiList = [
+      // KELAS 10 (FASE E)
+      {
+        title: "1. Proses Bisnis TJKT & K3LH",
+        badge: "Kelas 10 (Fase E - Dasar)",
+        content: `
+          <p class="text-base">Bidang <strong>Teknik Jaringan Komputer dan Telekomunikasi (TJKT)</strong> tidak hanya berfokus pada penguasaan teknis, tetapi juga pada bagaimana teknologi tersebut diterapkan dalam ekosistem bisnis modern serta mengutamakan keselamatan kerja.</p>
+          
+          <h3 class="text-lg font-bold text-blue-500 mt-6 mb-2">1. Alur Kerja & Proses Bisnis Industri TJKT</h3>
+          <p>Proses bisnis di bidang TJKT mencakup rangkaian kegiatan terencana untuk merancang, membangun, dan mengelola infrastruktur TI bagi klien atau perusahaan:</p>
+          <ul class="list-disc pl-5 space-y-2 my-2">
+            <li><strong>Perencanaan & Analisis Kebutuhan (Requirement Analysis):</strong> Mengidentifikasi jumlah pengguna, cakupan area jaringan, estimasi kebutuhan bandwidth, dan bujet klien.</li>
+            <li><strong>Perancangan Arsitektur (Network Design):</strong> Membuat topologi jaringan (Logical & Physical Design) serta menentukan spesifikasi perangkat keras/lunak.</li>
+            <li><strong>Pengadaan & Penggelaran (Deployment):</strong> Melakukan instalasi kabel, mounting server, konfigurasi router/switch, dan pengujian konektivitas.</li>
+            <li><strong>Pemeliharaan & Layanan (Maintenance & Support):</strong> Monitoring ketersediaan jaringan (*uptime*), penanganan gangguan (*troubleshooting*), dan update sistem berkala.</li>
+          </ul>
+
+          <h3 class="text-lg font-bold text-blue-500 mt-6 mb-2">2. Penerapan K3LH (Kesehatan, Keselamatan Kerja, & Lingkungan Hidup)</h3>
+          <p>K3LH adalah regulasi wajib untuk mencegah kecelakaan kerja dan penyakit akibat kerja di lingkungan laboratorium maupun instalasi lapangan:</p>
+          <div class="p-4 bg-gray-100 dark:bg-black/40 rounded-lg border-l-4 border-blue-500 my-4 space-y-2">
+            <p><strong>Standar Keselamatan Kerja TJKT:</strong></p>
+            <ul class="list-disc pl-5 space-y-1">
+              <li><strong>Alat Pelindung Diri (APD):</strong> Menggunakan helm keselamatan, sabuk pengaman (*full-body harness*) saat memanjat tower telekomunikasi, sepatu *safety* anti-statis, dan sarung tangan isolasi.</li>
+              <li><strong>Pencegahan Electrostatic Discharge (ESD):</strong> Menggunakan gelang anti-statis (*anti-static wrist strap*) saat memegang motherboard atau modul RAM agar arus statis tubuh tidak merusak sirkuit mikro.</li>
+              <li><strong>Manajemen Kabel & Ergonomi:</strong> Menata kabel jaringan (*cable management*) menggunakan ducting/cable tray agar tidak menyebabkan bahaya tersandung, serta mengatur posisi duduk ergonomis di depan komputer.</li>
+            </ul>
+          </div>
+        `
+      },
+      {
+        title: "2. Perakitan Komputer & Hardware",
+        badge: "Kelas 10 (Fase E - Dasar)",
+        content: `
+          <p class="text-base">Penguasaan komponen perangkat keras (hardware) dan urutan perakitan yang benar adalah dasar utama teknisi jaringan dalam membangun komputer server maupun workstation.</p>
+          
+          <h3 class="text-lg font-bold text-blue-500 mt-6 mb-2">1. Anatomi Komponen Utama PC</h3>
+          <ul class="list-disc pl-5 space-y-2 my-2">
+            <li><strong>Processor (CPU):</strong> Otak utama pemroses data. Memiliki spesifikasi kecepatan clock (GHz), jumlah core, serta cache memory.</li>
+            <li><strong>Motherboard:</strong> Papan sirkuit utama tempat menghubungkan seluruh komponen via socket CPU, slot RAM, PCIe slot, dan chipset.</li>
+            <li><strong>RAM (Random Access Memory):</strong> Memori penyimpanan sementara berkecepatan tinggi tempat data program berjalan disimpan.</li>
+            <li><strong>Media Penyimpanan (Storage):</strong> Menyimpan data secara permanen. Berupa <em>HDD (Hard Disk Drive)</em> mekanis, <em>SATA SSD</em>, atau <em>NVMe M.2 SSD</em> yang menggunakan jalur PCIe ultra-cepat.</li>
+            <li><strong>Power Supply Unit (PSU):</strong> Mengubah arus AC dari listrik PLN menjadi arus DC berkekuatan stabil (3.3V, 5V, 12V) untuk menyuplai daya ke komponen.</li>
+          </ul>
+
+          <h3 class="text-lg font-bold text-blue-500 mt-6 mb-2">2. Langkah-Langkah Perakitan PC Standar Industri</h3>
+          <ol class="list-decimal pl-5 space-y-2 my-3">
+            <li><strong>Persiapan:</strong> Gunakan gelang anti-statis dan siapkan obeng presisi. Letakkan motherboard di alas non-konduktif.</li>
+            <li><strong>Pemasangan Processor & Cooler:</strong> Buka tuas socket CPU, sejajarkan indikator segitiga processor dengan socket, kunci tuas. Aplikasikan <em>thermal paste</em> tipis dan pasang heatsink/fan cooler.</li>
+            <li><strong>Pemasangan RAM:</strong> Buka klip slot RAM, sesuaikan lekukan (*notch*) RAM dengan slot, tekan hingga terdengar bunyi 'klik'.</li>
+            <li><strong>Mounting Motherboard & PSU:</strong> Pasang PSU ke dalam casing, lalu tempatkan motherboard di atas *standoff screw* dan kencangkan baut.</li>
+            <li><strong>Pengkabelan (Cable Management):</strong> Hubungkan kabel Power 24-pin ATX ke motherboard, 8-pin CPU power, kabel SATA/Power Storage, serta panel depan (Front Panel: Power SW, Reset SW, HDD LED).</li>
+            <li><strong>Pengujian POST (Power-On Self-Test):</strong> Hubungkan monitor dan sumber daya, hidupkan komputer untuk memastikan BIOS/UEFI mendeteksi seluruh hardware dengan baik.</li>
+          </ol>
+        `
+      },
+      {
+        title: "3. Instalasi Sistem Operasi",
+        badge: "Kelas 10 (Fase E - Dasar)",
+        content: `
+          <p class="text-base">Sistem Operasi (OS) bertindak sebagai jembatan penerjemah antara perangkat keras (hardware) dan aplikasi pengguna. Dalam TJKT, teknisi wajib menguasai instalasi OS Desktop maupun OS Server.</p>
+
+          <h3 class="text-lg font-bold text-blue-500 mt-6 mb-2">1. Jenis & Klasifikasi Sistem Operasi</h3>
+          <ul class="list-disc pl-5 space-y-2 my-2">
+            <li><strong>OS Proprietary (Windows):</strong> Mudah digunakan (GUI-rich), dukungan driver luas, banyak digunakan untuk pengguna harian dan jaringan berbasis Active Directory (Windows Server).</li>
+            <li><strong>OS Open Source (Linux):</strong> Stabil, aman dari virus, hemat sumber daya, dan menjadi standar utama infrastruktur Server/Cloud (Debian, Ubuntu Server, Rocky Linux).</li>
+          </ul>
+
+          <h3 class="text-lg font-bold text-blue-500 mt-6 mb-2">2. Skema Partisi & Mode Booting</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+            <div class="p-3 border rounded bg-gray-100 dark:bg-black/40">
+              <strong class="text-blue-400">Legacy BIOS / MBR:</strong>
+              <p class="text-xs mt-1">Sistem boot tradisional. MBR (Master Boot Record) memiliki keterbatasan maksimal 4 partisi primer dan kapasitas disk maksimal 2 Terabyte.</p>
+            </div>
+            <div class="p-3 border rounded bg-gray-100 dark:bg-black/40">
+              <strong class="text-blue-400">UEFI / GPT:</strong>
+              <p class="text-xs mt-1">Standar booting modern. GPT (GUID Partition Table) mendukung kapasitas disk melebihi 2TB, keamanan Secure Boot, dan jumlah partisi hingga 128.</p>
+            </div>
+          </div>
+
+          <h3 class="text-lg font-bold text-blue-500 mt-6 mb-2">3. Prosedur Instalasi OS</h3>
+          <p>Prosedur umum meliputi pembuatan media <em>Bootable USB Drive</em> menggunakan perangkat lunak seperti Rufus atau Ventoy, mengatur prioritas *Boot Order* di BIOS/UEFI, melakukan pembagian partisi disk (Root <code>/</code>, Swap, dan Home <code>/home</code> pada Linux), hingga konfigurasi akun pengguna dan driver perangkat.</p>
+        `
+      },
+      {
+        title: "4. Jaringan Dasar & Kabel",
+        badge: "Kelas 10 (Fase E - Dasar)",
+        content: `
+          <p class="text-base">Jaringan komputer adalah kumpulan dua atau lebih perangkat terhubung yang saling berbagi data, sumber daya (seperti printer atau internet), dan layanan komunikasi.</p>
+
+          <h3 class="text-lg font-bold text-blue-500 mt-6 mb-2">1. Klasifikasi Jaringan Berdasarkan Area Geografis</h3>
+          <ul class="list-disc pl-5 space-y-1 text-sm my-2">
+            <li><strong>PAN (Personal Area Network):</strong> Jaringan perorangan dalam jangkauan < 10 meter (contoh: Bluetooth, NFC).</li>
+            <li><strong>LAN (Local Area Network):</strong> Jaringan lokal terbatas satu gedung/ruangan (contoh: Lab Sekolah, Kantor).</li>
+            <li><strong>MAN (Metropolitan Area Network):</strong> Jaringan yang menghubungkan antar gedung dalam satu kota (10-50 km).</li>
+            <li><strong>WAN (Wide Area Network):</strong> Jaringan lintas negara/benua yang terhubung melalui kabel laut atau satelit.</li>
+          </ul>
+
+          <h3 class="text-lg font-bold text-blue-500 mt-6 mb-2">2. Kabel UTP & Standar Crimping RJ45</h3>
+          <p>Kabel <strong>UTP (Unshielded Twisted Pair)</strong> Category 5e/6 menggunakan 8 untai kabel berwarna yang dipilin berpasangan untuk mengurangi intersepsi sinyal (crosstalk).</p>
+          
+          <div class="p-4 bg-gray-100 dark:bg-black/40 rounded-lg border-l-4 border-blue-500 my-4">
+            <p class="font-bold mb-2">Urutan Pinout Standar T568B (Paling Banyak Digunakan):</p>
+            <ol class="list-decimal pl-5 space-y-1 font-mono text-xs">
+              <li>Putih-Oren (Tx+)</li>
+              <li>Oren (Tx-)</li>
+              <li>Putih-Hijau (Rx+)</li>
+              <li>Biru</li>
+              <li>Putih-Biru</li>
+              <li>Hijau (Rx-)</li>
+              <li>Putih-Cokelat</li>
+              <li>Cokelat</li>
+            </ol>
+          </div>
+
+          <p><strong>Tipe Kabel:</strong></p>
+          <ul class="list-disc pl-5 space-y-1 text-sm">
+            <li><strong>Straight-Through:</strong> Kedua ujung menggunakan standar T568B. Digunakan untuk menghubungkan <em>dua perangkat berbeda</em> (contoh: PC ke Switch, Router ke Switch).</li>
+            <li><strong>Cross-Over:</strong> Ujung satu T568A, ujung lainnya T568B. Digunakan untuk menghubungkan <em>dua perangkat sejenis</em> (contoh: PC ke PC, Switch ke Switch).</li>
+          </ul>
+        `
+      },
+      {
+        title: "5. Alat Ukur & Pemeliharaan TJKT",
+        badge: "Kelas 10 (Fase E - Dasar)",
+        content: `
+          <p class="text-base">Penggunaan instrumen pengukur dan penerapan teknik pemeliharaan rutin merupakan kunci utama untuk memastikan infrastruktur jaringan bekerja secara stabil tanpa *downtime*.</p>
+
+          <h3 class="text-lg font-bold text-blue-500 mt-6 mb-2">1. Alat Ukur Utama dalam TJKT</h3>
+          <div class="space-y-3 my-3">
+            <div class="p-3 border border-gray-200 dark:border-white/10 rounded">
+              <strong class="text-blue-500">LAN Tester (Cable Tester):</strong>
+              <p class="text-xs mt-1">Menguji kontinuitas fisik dan kebenaran urutan 8 pin kabel UTP/STP dengan konektor RJ45 atau RJ11 melalui lampu LED indikator (1 sampai 8).</p>
+            </div>
+            <div class="p-3 border border-gray-200 dark:border-white/10 rounded">
+              <strong class="text-blue-500">Multimeter Digital/Analog:</strong>
+              <p class="text-xs mt-1">Mengukur tegangan listrik (AC/DC), kuat arus (Ampere), hambatan (Ohm), serta menguji kontinuitas kabel tembaga dari potensi kawat terputus.</p>
+            </div>
+            <div class="p-3 border border-gray-200 dark:border-white/10 rounded">
+              <strong class="text-blue-500">OPM (Optical Power Meter) & VFL (Visual Fault Locator):</strong>
+              <p class="text-xs mt-1">Digunakan pada jaringan serat optik (Fiber Optic). VFL memancarkan sinar laser merah untuk melacak lekukan atau titik putus, sedangkan OPM mengukur redaman sinyal daya optik (dBm).</p>
+            </div>
+          </div>
+
+          <h3 class="text-lg font-bold text-blue-500 mt-6 mb-2">2. Strategi Pemeliharaan Sistem</h3>
+          <ul class="list-disc pl-5 space-y-2 my-2">
+            <li><strong>Pemeliharaan Preventif (Preventive Maintenance):</strong> Tindakan pencegahan berkala, seperti pembersihan debu fisik pada kipas server, penggantian thermal paste, pembaruan patch sistem keamanan, dan backup konfigurasi router.</li>
+            <li><strong>Pemeliharaan Korektif (Corrective Maintenance):</strong> Perbaikan darurat yang dilakukan saat sistem mengalami kendala (failure) agar layanan dapat kembali pulih (*recovery*).</li>
+          </ul>
+        `
+      },
+
+      // KELAS 11 (FASE F)
+      {
+        title: "6. Administrasi Infrastruktur Jaringan",
+        badge: "Kelas 11 (Fase F - Konsentrasi)",
+        content: `
+          <p class="text-base">Administrasi Infrastruktur Jaringan (AIJ) membahas pengaturan perangkat keras pengarah jaringan skala menengah hingga besar seperti Managed Switch dan Enterprise Router.</p>
+
+          <h3 class="text-lg font-bold text-blue-500 mt-6 mb-2">1. Virtual LAN (VLAN) & Trunking</h3>
+          <p><strong>VLAN</strong> digunakan untuk membagi satu jaringan fisik switch menjadi beberapa domain siaran (broadcast domain) terpisah secara logis. Hal ini meningkatkan keamanan dan efisiensi jaringan.</p>
+          <ul class="list-disc pl-5 space-y-1 text-sm my-2">
+            <li><strong>Access Port:</strong> Port switch yang terhubung langsung ke end-device (PC, Printer) dan hanya membawa 1 VLAN ID.</li>
+            <li><strong>Trunk Port:</strong> Port switch yang membawa data dari banyak VLAN sekaligus antar switch/router menggunakan enkapsulasi protokol <strong>IEEE 802.1Q</strong>.</li>
+          </ul>
+
+          <h3 class="text-lg font-bold text-blue-500 mt-6 mb-2">2. Konsep & Implementasi Routing</h3>
+          <p>Routing adalah proses meneruskan paket data dari satu subnet IP ke subnet IP tujuan lainnya berdasarkan tabel routing (*routing table*):</p>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
+            <div class="p-3 border rounded bg-gray-100 dark:bg-black/40">
+              <strong>Routing Statis (Static Routing):</strong>
+              <p class="text-xs mt-1">Tabel rute diisi secara manual oleh administrator. Sangat aman dan hemat memori CPU router, namun tidak praktis untuk skala jaringan besar.</p>
+            </div>
+            <div class="p-3 border rounded bg-gray-100 dark:bg-black/40">
+              <strong>Routing Dinamis (Dynamic Routing):</strong>
+              <p class="text-xs mt-1">Router bertukar tabel rute secara otomatis menggunakan protokol routing (seperti OSPF, RIP, atau BGP) dan beradaptasi cepat jika ada jalur putus.</p>
+            </div>
+          </div>
+        `
+      },
+      {
+        title: "7. Administrasi Sistem Jaringan",
+        badge: "Kelas 11 (Fase F - Konsentrasi)",
+        content: `
+          <p class="text-base">Administrasi Sistem Jaringan (ASJ) berfokus pada penyediaan dan pengelolaan berbagai layanan server berbasis Linux/Windows Server untuk melayani kebutuhan klien dalam jaringan.</p>
+
+          <h3 class="text-lg font-bold text-blue-500 mt-6 mb-2">1. Layanan Layanan Utama Server (Core Network Services)</h3>
+          <div class="space-y-3 my-3">
+            <div class="p-3 bg-gray-100 dark:bg-black/40 rounded">
+              <strong class="text-blue-500">DHCP Server (Dynamic Host Configuration Protocol):</strong>
+              <p class="text-xs mt-1">Memberikan konfigurasi IP Address, Subnet Mask, Gateway, dan DNS Server secara otomatis kepada komputer klien melalui proses 4 tahap: <em>DORA (Discover, Offer, Request, Acknowledge)</em>.</p>
+            </div>
+            <div class="p-3 bg-gray-100 dark:bg-black/40 rounded">
+              <strong class="text-blue-500">DNS Server (Domain Name System):</strong>
+              <p class="text-xs mt-1">Translasi nama domain yang mudah diingat manusia (contoh: <code>cyberzone.id</code>) menjadi alamat IP numerik yang dipahami mesin (contoh: <code>192.168.10.1</code>) menggunakan aplikasi BIND9.</p>
+            </div>
+            <div class="p-3 bg-gray-100 dark:bg-black/40 rounded">
+              <strong class="text-blue-500">Web Server & Database:</strong>
+              <p class="text-xs mt-1">Penyediaan konten aplikasi web menggunakan HTTP/HTTPS via Apache2 atau Nginx, terintegrasi dengan Database Management System seperti MySQL/MariaDB.</p>
+            </div>
+          </div>
+        `
+      },
+      {
+        title: "8. Teknologi Jaringan Berbasis Luas (WAN)",
+        badge: "Kelas 11 (Fase F - Konsentrasi)",
+        content: `
+          <p class="text-base">Membahas teknologi penghubung jaringan jarak jauh yang melintasi area geografis perkotaan hingga pulau, memanfaatkan media kabel serat optik mau pun gelombang radio nirkabel.</p>
+
+          <h3 class="text-lg font-bold text-blue-500 mt-6 mb-2">1. Teknologi Nirkabel & Wi-Fi Industri</h3>
+          <p>Komunikasi nirkabel berbasis standar **IEEE 802.11** menggunakan dua frekuensi radio utama:</p>
+          <ul class="list-disc pl-5 space-y-1 text-sm my-2">
+            <li><strong>Frekuensi 2.4 GHz:</strong> Memiliki jangkauan sinyal lebih jauh dan penetrasi tembok yang baik, tetapi rawan interferensi karena salurannya padat.</li>
+            <li><strong>Frekuensi 5 GHz:</strong> Memiliki throughput bandwidth jauh lebih cepat dan sedikit interferensi, tetapi jangkauan jaraknya lebih pendek.</li>
+          </ul>
+
+          <h3 class="text-lg font-bold text-blue-500 mt-6 mb-2">2. Arsitektur Jaringan Wireless Outdoor</h3>
+          <ul class="list-disc pl-5 space-y-2 my-2">
+            <li><strong>Point-to-Point (PTP):</strong> Menghubungkan 2 lokasi gedung/tower secara khusus menggunakan antena direktional berdaya jangkau jauh (seperti antena Dish atau Grid).</li>
+            <li><strong>Point-to-Multipoint (PTMP):</strong> Satu stasiun pemancar pusat (*Base Station / Omni Antenna*) memancarkan sinyal ke banyak lokasi penerima (*Client/CPE*).</li>
+          </ul>
+        `
+      },
+      {
+        title: "9. Keamanan Jaringan & Cyber Security",
+        badge: "Kelas 11 (Fase F - Konsentrasi)",
+        content: `
+          <p class="text-base">Di era digital, infrastruktur jaringan sangat rentan terhadap serangan siber. Keamanan jaringan bertugas menjaga integritas, kerahasiaan (*confidentiality*), dan ketersediaan (*availability*) data.</p>
+
+          <h3 class="text-lg font-bold text-blue-500 mt-6 mb-2">1. Implementasi Firewall & NAT</h3>
+          <p><strong>Firewall</strong> bertindak sebagai garda depan pengaman lalu lintas data dengan memeriksa setiap paket berdasarkan aturan (*rules*):</p>
+          <ul class="list-disc pl-5 space-y-1 text-sm my-2">
+            <li><strong>Filtering Rules:</strong> Mengizinkan (*Accept*), menolak (*Reject*), atau membuang (*Drop*) paket data berdasarkan IP Asal, IP Tujuan, Port, atau Protokol.</li>
+            <li><strong>NAT (Network Address Translation):</strong> Mentranslasikan alamat IP Privat jaringan lokal menjadi alamat IP Publik agar bisa mengakses internet, serta menyembunyikan struktur IP internal dari publik.</li>
+          </ul>
+
+          <h3 class="text-lg font-bold text-blue-500 mt-6 mb-2">2. Enkripsi & Virtual Private Network (VPN)</h3>
+          <p><strong>VPN</strong> membuat jalur pipa privat terenkripsi (*encrypted tunnel*) di atas jaringan publik internet. Menggunakan protokol seperti L2TP/IPsec, OpenVPN, atau WireGuard untuk menghubungkan pekerja jarak jauh ke jaringan internal kantor secara aman.</p>
+        `
+      },
+
+      // KELAS 12 (FASE F - PENDALAMAN & PROJEK)
+      {
+        title: "10. AIJ Lanjutan & Bandwidth Management",
+        badge: "Kelas 12 (Fase F - Pendalaman)",
+        content: `
+          <p class="text-base">Materi tingkat lanjut untuk mengoptimalkan penggunaan kapasitas pipa data (bandwidth) dan menjamin kestabilan jaringan internet skala besar.</p>
+
+          <h3 class="text-lg font-bold text-blue-500 mt-6 mb-2">1. Manajemen Bandwidth (Quality of Service - QoS)</h3>
+          <p>Teknik pembagian kuota kecepatan internet agar setiap pengguna mendapatkan alokasi adil dan mencegah lalu lintas data yang berlebihan:</p>
+          <ul class="list-disc pl-5 space-y-2 my-2">
+            <li><strong>Simple Queue:</strong> Cara paling sederhana untuk membatasi *Upload/Download* berdasarkan IP Address atau subnet tertentu.</li>
+            <li><strong>Queue Tree & HTB (Hierarchical Token Bucket):</strong> Pengelompokan bandwidth secara bertingkat berdasarkan prioritas paket data (contoh: memprioritaskan paket *Game Online* dan *Zoom Meeting* di atas paket *Download Torrent*).</li>
+          </ul>
+
+          <h3 class="text-lg font-bold text-blue-500 mt-6 mb-2">2. Load Balancing & Redundancy</h3>
+          <p>Menggabungkan dua atau lebih jalur koneksi ISP (Internet Service Provider) menggunakan metode seperti <strong>PCC (Per Connection Classifier)</strong> untuk membagi beban trafik secara seimbang, serta fitur <strong>Failover</strong> otomatis jika salah satu koneksi ISP terputus.</p>
+        `
+      },
+      {
+        title: "11. ASJ Lanjutan & Troubleshooting",
+        badge: "Kelas 12 (Fase F - Pendalaman)",
+        content: `
+          <p class="text-base">Membangun server enterprise lanjutan dan menerapkan metodologi analitis untuk memecahkan gangguan sistem (*troubleshooting*).</p>
+
+          <h3 class="text-lg font-bold text-blue-500 mt-6 mb-2">1. Layanan Server Lanjutan</h3>
+          <ul class="list-disc pl-5 space-y-2 my-2">
+            <li><strong>Mail Server & Webmail:</strong> Membangun server email mandiri berbasis SMTP (Postfix) untuk pengiriman email, IMAP/POP3 (Dovecot) untuk penerimaan, dan tampilan antarmuka webmail (Roundcube).</li>
+            <li><strong>Database Server Cluster & Backup:</strong> Konfigurasi replikasi database (Master-Slave) untuk redundansi data dan penjadwalan otomatis perintah <code>mysqldump</code> via *Cron Job*.</li>
+          </ul>
+
+          <h3 class="text-lg font-bold text-blue-500 mt-6 mb-2">2. Metodologi Troubleshooting Server</h3>
+          <div class="p-4 bg-gray-100 dark:bg-black/40 rounded-lg border-l-4 border-blue-500 my-4">
+            <p class="font-bold mb-1">Langkah Deteksi Masalah Sistem:</p>
+            <ol class="list-decimal pl-5 space-y-1 text-xs font-mono">
+              <li>Pemeriksaan status service: <code>systemctl status name-service</code></li>
+              <li>Analisis log error real-time: <code>journalctl -xe</code> atau <code>tail -f /var/log/syslog</code></li>
+              <li>Pengujian alokasi sumber daya memori dan CPU: <code>htop</code> atau <code>top</code></li>
+              <li>Pemeriksaan port terbuka: <code>netstat -tulpn</code> atau <code>ss -tulpn</code></li>
+            </ol>
+          </div>
+        `
+      },
+      {
+        title: "12. Teknologi Layanan Jaringan (VoIP & Fiber Optic)",
+        badge: "Kelas 12 (Fase F - Pendalaman)",
+        content: `
+          <p class="text-base">Mempelajari integrasi jaringan telepon suara digital berbasis IP serta infrastruktur fisik transmisi cahaya menggunakan kabel Serat Optik (Fiber Optic).</p>
+
+          <h3 class="text-lg font-bold text-blue-500 mt-6 mb-2">1. Voice over IP (VoIP)</h3>
+          <p>VoIP memungkinkan transmisi percakapan suara melalui jaringan IP digital, menggantikan jaringan telepon analog tradisional (PSTN):</p>
+          <ul class="list-disc pl-5 space-y-1 text-sm my-2">
+            <li><strong>Protokol SIP (Session Initiation Protocol):</strong> Protokol penyiapan dan pembubaran sesi komunikasi suara/video.</li>
+            <li><strong>Server IP-PBX (Asterisk / FreePBX):</strong> Server pusat pembagi ekstensi nomor telepon digital ke perangkat *Softphone* (aplikasi HP/PC) atau *IP Phone*.</li>
+          </ul>
+
+          <h3 class="text-lg font-bold text-blue-500 mt-6 mb-2">2. Infrastruktur Serat Optik (Fiber Optic)</h3>
+          <p>Teknologi transmisi data tercepat yang memanfaatkan pembiasan gelombang cahaya di dalam serat kaca murni berukuran mikro.</p>
+          <div class="space-y-2 my-3 text-sm">
+            <p><strong>Teknik Splicing (Penyambungan Fiber Optic):</strong></p>
+            <p>Proses penyambungan kawat kaca serat optik yang putus menggunakan alat pelebur khusus bernama <strong>Fusion Splicer</strong>. Menggunakan panas busur listrik presisi tinggi untuk meleburkan dua ujung kawat inti kaca (*Core*) dengan batas toleransi redaman redaman maksimal < 0.03 dB.</p>
+          </div>
+        `
+      },
+      {
+        title: "13. Produk Kreatif & Kewirausahaan (PKK)",
+        badge: "Kelas 12 (Fase F - Projek Akhir)",
+        content: `
+          <p class="text-base">Materi penutup yang mengarahkan siswa untuk mengubah keahlian teknis TJKT menjadi produk atau jasa bernilai ekonomis dan siap dipasarkan ke dunia bisnis.</p>
+
+          <h3 class="text-lg font-bold text-blue-500 mt-6 mb-2">1. Peluang Usaha Bisnis TJKT</h3>
+          <ul class="list-disc pl-5 space-y-2 my-2">
+            <li><strong>Usaha Layanan RT/RW Net & ISP Reseller:</strong> Membangun infrastruktur distribusi akses internet lokal berbasis sistem manajemen koin/voucher Hotspot.</li>
+            <li><strong>Jasa Konsultan & Contractor Network Installation:</strong> Layanan instalasi jaringan LAN/Wi-Fi kantor, pemasangan CCTV berbasis IP, dan mounting rack server.</li>
+            <li><strong>Jasa Maintenance & Cloud Managed Service:</strong> Pengelolaan pemeliharaan berkala server web dan keamanan siber perusahaan UMKM.</li>
+          </ul>
+
+          <h3 class="text-lg font-bold text-blue-500 mt-6 mb-2">2. Penyusunan RAB & Dokumentasi Proyek</h3>
+          <p>Setiap proyek wajib dilengkapi dengan <strong>Rencana Anggaran Biaya (RAB)</strong> yang memperhitungkan biaya modal awal (*CAPEX - Capital Expenditure*) seperti pembelian router/kabel, serta biaya operasional (*OPEX - Operational Expenditure*). Selain itu, teknisi menyusun dokumen **SLA (Service Level Agreement)** sebagai bentuk jaminan garansi ketersediaan layanan kepada konsumen.</p>
+        `
+      }
+    ];
+
+    let currentMateriIndex = 0;
+
+    function renderTabs() {
+      const tabsContainer = document.getElementById('materi-tabs');
+      tabsContainer.innerHTML = '';
+      materiList.forEach((m, idx) => {
+        const btn = document.createElement('button');
+        btn.className = `px-3 py-1.5 rounded text-xs font-mono border whitespace-nowrap transition ${idx === currentMateriIndex ? 'bg-blue-500 text-white border-blue-500 font-bold' : 'border-gray-300 dark:border-white/10 hover:bg-blue-500/10'}`;
+        btn.textContent = `${idx + 1}. ${m.title.split('. ')[1] || m.title}`;
+        btn.onclick = () => loadMateri(idx);
+        tabsContainer.appendChild(btn);
+      });
+    }
+
+    function loadMateri(index) {
+      currentMateriIndex = index;
+      const data = materiList[index];
+
+      document.getElementById('materi-step-indicator').textContent = `Materi ${index + 1} dari ${materiList.length}`;
+      document.getElementById('materi-badge').textContent = data.badge;
+      document.getElementById('materi-title').textContent = data.title;
+      document.getElementById('materi-body').innerHTML = data.content;
+
+      // Handle button disabled state
+      document.getElementById('prev-materi-btn').disabled = (index === 0);
+      document.getElementById('prev-materi-btn').style.opacity = (index === 0) ? '0.5' : '1';
+
+      const nextBtn = document.getElementById('next-materi-btn');
+      if (index === materiList.length - 1) {
+        nextBtn.innerHTML = `<span>Selesai Belajar</span> <i class="fas fa-check text-xs"></i>`;
+      } else {
+        nextBtn.innerHTML = `<span>Materi Selanjutnya</span> <i class="fas fa-arrow-right text-xs"></i>`;
+      }
+
+      renderTabs();
+      window.scrollTo({ top: 200, behavior: 'smooth' });
+    }
+
+    function nextMateri() {
+      if (currentMateriIndex < materiList.length - 1) {
+        loadMateri(currentMateriIndex + 1);
+      } else {
+        alert("Selamat! Kamu telah menyelesaikan seluruh modul pembelajaran TJKT.");
+      }
+    }
+
+    function prevMateri() {
+      if (currentMateriIndex > 0) {
+        loadMateri(currentMateriIndex - 1);
+      }
+    }
+
+    // Init
+    document.addEventListener('DOMContentLoaded', () => {
+      loadMateri(0);
+    });
+  </script>
+</body>
+</html>

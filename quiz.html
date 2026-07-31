@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Interaktif TJKT - Cyber of Zone</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: { cyber: { black: '#0a0a0c', dark: '#121216', gray: '#1e1e24' } }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-cyber-black dark:text-white transition-colors duration-300 font-sans min-h-screen flex flex-col justify-between">
+
+  <!-- Header Navbar -->
+  <header class="sticky top-0 z-40 backdrop-blur-md bg-white/80 dark:bg-cyber-black/80 border-b border-gray-200 dark:border-white/10">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center space-x-3 font-mono font-bold text-lg">
+        <div class="w-10 h-10 bg-black dark:bg-white text-white dark:text-black flex items-center justify-center rounded">COZ</div>
+        <span>CYBER<span class="text-blue-500">ZONE</span></span>
+      </a>
+      <nav class="hidden md:flex space-x-6 text-sm font-medium">
+        <a href="index.html" class="hover:text-blue-500">Beranda</a>
+        <a href="profil.html" class="hover:text-blue-500">Profil</a>
+        <a href="materi.html" class="hover:text-blue-500">Materi TJKT</a>
+        <a href="kegiatan.html" class="hover:text-blue-500">Instalasi OS</a>
+        <a href="quiz.html" class="text-blue-500 font-semibold">Quiz</a>
+        <a href="kontak.html" class="hover:text-blue-500">Kontak</a>
+      </nav>
+      <div class="flex items-center space-x-3">
+        <button id="dark-mode-toggle" class="p-2 border rounded-lg border-gray-300 dark:border-white/20"><i id="theme-icon" class="fas fa-sun text-yellow-400"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Quiz Wrapper Container -->
+  <main class="max-w-4xl mx-auto px-4 py-12 flex-grow w-full">
+    
+    <div class="text-center mb-8" data-aos="fade-up">
+      <h1 class="text-3xl font-bold font-mono mb-2">// QUIZ EVALUASI TJKT (20 SOAL)</h1>
+      <p class="text-gray-500 dark:text-gray-400 text-sm">Waktu pengerjaan 30 Menit untuk menguji pemahaman seluruh materi TJKT</p>
+    </div>
+
+    <!-- Start Banner Card -->
+    <div id="quiz-selection" class="p-8 border border-gray-200 dark:border-white/10 rounded-xl bg-white/50 dark:bg-cyber-dark/50 text-center" data-aos="fade-up">
+      <div class="w-16 h-16 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center text-3xl mx-auto mb-4 font-mono">
+        <i class="fas fa-graduation-cap"></i>
+      </div>
+      <h2 class="text-xl font-bold font-mono mb-2">Siap Menguji Kemampuan Kejuruan TJKT?</h2>
+      <p class="text-gray-500 text-sm mb-6 max-w-md mx-auto">Quiz ini berisi <strong>20 Soal Pilihan Ganda</strong> gabungan Fase E & F dengan durasi timer <strong>30 Menit</strong>.</p>
+      
+      <button onclick="startComprehensiveQuiz()" class="px-8 py-3.5 bg-black dark:bg-white text-white dark:text-black font-mono font-bold rounded-lg hover:opacity-90 transition shadow-xl">
+        <i class="fas fa-play mr-2"></i> Mulai Quiz Sekarang
+      </button>
+    </div>
+
+    <!-- Active Quiz Playing Container -->
+    <div id="quiz-box" class="hidden p-6 sm:p-8 border border-gray-200 dark:border-white/10 rounded-xl bg-white/50 dark:bg-cyber-dark/50 relative shadow-2xl">
+      <!-- Header Timer & Counter -->
+      <div class="flex justify-between items-center border-b border-gray-200 dark:border-white/10 pb-4 mb-6">
+        <span id="question-number" class="font-mono text-xs font-bold text-blue-500">Soal 1 dari 20</span>
+        <div class="font-mono text-sm bg-red-500/10 text-red-500 px-3.5 py-1.5 rounded border border-red-500/20 font-bold flex items-center">
+          <i class="fas fa-clock mr-2 animate-pulse"></i> <span id="quiz-timer">30:00</span>
+        </div>
+      </div>
+
+      <!-- Question Text -->
+      <h3 id="question-text" class="text-base sm:text-lg font-semibold mb-6 leading-relaxed">Text Soal...</h3>
+
+      <!-- Options Container -->
+      <div id="options-container" class="space-y-3 mb-8">
+        <!-- Render Options Dynamic -->
+      </div>
+
+      <!-- Footer Action -->
+      <div class="flex justify-between items-center border-t border-gray-200 dark:border-white/10 pt-4">
+        <button id="next-btn" onclick="nextQuestion()" class="ml-auto px-6 py-2.5 bg-black dark:bg-white text-white dark:text-black rounded font-mono text-sm font-bold hover:opacity-90 transition">
+          Soal Selanjutnya <i class="fas fa-arrow-right ml-1"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Quiz Result & Explanation Container -->
+    <div id="quiz-result" class="hidden p-8 border border-gray-200 dark:border-white/10 rounded-xl bg-white/50 dark:bg-cyber-dark/50 text-center">
+      <i class="fas fa-trophy text-5xl text-yellow-500 mb-4 animate-bounce"></i>
+      <h2 class="text-2xl font-bold font-mono mb-1">QUIZ SELESAI!</h2>
+      <p class="text-gray-500 text-sm mb-6">Berikut ringkasan hasil evaluasi pengerjaan kamu:</p>
+
+      <div class="text-5xl font-extrabold font-mono text-blue-500 mb-8" id="final-score">0 / 100</div>
+
+      <div id="quiz-explanation-list" class="text-left space-y-4 mb-8">
+        <!-- Render Pembahasan Jawaban -->
+      </div>
+
+      <button onclick="location.reload()" class="px-8 py-3 bg-black dark:bg-white text-white dark:text-black font-mono font-bold rounded hover:opacity-90 transition">
+        <i class="fas fa-redo mr-2"></i> Ulangi Quiz
+      </button>
+    </div>
+
+  </main>
+
+  <footer class="border-t border-gray-200 dark:border-white/10 py-6 text-center text-sm text-gray-500">
+    © 2026 Cyber of Zone (COZ). All rights reserved.
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="js/darkmode.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil - Cyber of Zone (COZ)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: { cyber: { black: '#0a0a0c', dark: '#121216', gray: '#1e1e24' } }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-cyber-black dark:text-white transition-colors duration-300 font-sans min-h-screen flex flex-col justify-between">
+
+  <!-- Header Navbar -->
+  <header class="sticky top-0 z-40 backdrop-blur-md bg-white/80 dark:bg-cyber-black/80 border-b border-gray-200 dark:border-white/10">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center space-x-3 font-mono font-bold text-lg">
+        <div class="w-10 h-10 bg-black dark:bg-white text-white dark:text-black flex items-center justify-center rounded">COZ</div>
+        <span>CYBER<span class="text-blue-500">ZONE</span></span>
+      </a>
+      <nav class="hidden md:flex space-x-6 text-sm font-medium">
+        <a href="index.html" class="hover:text-blue-500">Beranda</a>
+        <a href="profil.html" class="text-blue-500 font-semibold">Profil</a>
+        <a href="materi.html" class="hover:text-blue-500">Materi TJKT</a>
+        <a href="kegiatan.html" class="hover:text-blue-500">Instalasi OS</a>
+        <a href="quiz.html" class="hover:text-blue-500">Quiz</a>
+        <a href="kontak.html" class="hover:text-blue-500">Kontak</a>
+      </nav>
+      <div class="flex items-center space-x-3">
+        <button id="dark-mode-toggle" class="p-2 border rounded-lg border-gray-300 dark:border-white/20"><i id="theme-icon" class="fas fa-sun text-yellow-400"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Content Profil -->
+  <main class="max-w-5xl mx-auto px-4 py-12 flex-grow">
+    <div data-aos="fade-up">
+      <div class="text-center mb-12">
+        <span class="inline-block px-3 py-1 text-xs font-mono rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 mb-3">
+          // PROFIL PLATFORM
+        </span>
+        <h1 class="text-3xl sm:text-5xl font-extrabold font-mono mb-4">// TENTANG CYBER OF ZONE (COZ)</h1>
+        <p class="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
+          Pusat Pembelajaran Digital Terpadu Kejuruan Teknik Jaringan Komputer dan Telekomunikasi.
+        </p>
+      </div>
+
+      <!-- Detail Penjelasan COZ -->
+      <div class="p-8 rounded-xl border border-gray-200 dark:border-white/10 bg-white/50 dark:bg-cyber-dark/50 mb-10 shadow-lg">
+        <h2 class="text-2xl font-bold font-mono mb-4 text-blue-500">Apa itu Cyber of Zone?</h2>
+        <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+          <strong>Cyber of Zone (COZ)</strong> adalah sebuah portal modul edukasi interaktif yang dirancang khusus untuk memenuhi kebutuhan siswa Sekolah Menengah Kejuruan (SMK) pada kompetensi keahlian <strong>Teknik Jaringan Komputer dan Telekomunikasi (TJKT)</strong>. 
+        </p>
+        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+          Platform ini menyajikan rangkuman kurikulum mulai dari Fase E (Kelas 10) hingga Fase F (Kelas 11 & 12), mencakup teori dasar jaringan, konfigurasi server Linux/Windows, administrasi infrastruktur, sistem virtualisasi, keamanan siber, hingga panduan praktikum instalasi sistem operasi modern.
+        </p>
+      </div>
+
+      <!-- Grid Visi & Misi -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        
+        <!-- Card Visi -->
+        <div class="p-6 rounded-xl border border-gray-200 dark:border-white/10 bg-white/50 dark:bg-cyber-dark/50 hover:border-blue-500 transition">
+          <div class="w-12 h-12 bg-blue-500/10 text-blue-500 rounded-lg flex items-center justify-center text-2xl mb-4 font-mono">
+            <i class="fas fa-eye"></i>
+          </div>
+          <h3 class="text-xl font-bold font-mono mb-3">Visi COZ</h3>
+          <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+            Menjadi platform media pembelajaran mandiri bidang TJKT yang interaktif, futuristik, terstruktur, serta mudah diakses oleh seluruh siswa SMK Kejuruan di Indonesia guna mencetak teknisi jaringan yang berkompeten di era digital.
+          </p>
+        </div>
+
+        <!-- Card Misi -->
+        <div class="p-6 rounded-xl border border-gray-200 dark:border-white/10 bg-white/50 dark:bg-cyber-dark/50 hover:border-blue-500 transition">
+          <div class="w-12 h-12 bg-green-500/10 text-green-500 rounded-lg flex items-center justify-center text-2xl mb-4 font-mono">
+            <i class="fas fa-bullseye"></i>
+          </div>
+          <h3 class="text-xl font-bold font-mono mb-3">Misi COZ</h3>
+          <ul class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed space-y-2 list-disc pl-4">
+            <li>Menyediakan materi pembelajaran TJKT yang relevan dengan perkembangan industri dan Kurikulum Merdeka.</li>
+            <li>Menyajikan panduan praktikum instalasi OS, Virtualisasi, dan Server secara terstruktur step-by-step.</li>
+            <li>Menyediakan sarana evaluasi mandiri melalui sistem Quiz interaktif dengan pembahasan jawaban mendalam.</li>
+            <li>Mengembangkan antarmuka belajar yang responsif, nyaman, dan berteknologi tinggi.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Fokus Keahlian -->
+      <h2 class="text-2xl font-bold font-mono mb-6">// FOKUS MATERI KEAHLIAN TJKT</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="p-5 border border-gray-200 dark:border-white/10 rounded-lg bg-white/30 dark:bg-black/30">
+          <i class="fas fa-network-wired text-blue-500 text-2xl mb-2"></i>
+          <h3 class="font-bold text-base mb-1">Infrastruktur & Topologi</h3>
+          <p class="text-xs text-gray-500 dark:text-gray-400">Pengabelan UTP/FO, Switch VLAN, Routing OSPF/Static, Mikrotik & Cisco.</p>
+        </div>
+        <div class="p-5 border border-gray-200 dark:border-white/10 rounded-lg bg-white/30 dark:bg-black/30">
+          <i class="fas fa-server text-green-500 text-2xl mb-2"></i>
+          <h3 class="font-bold text-base mb-1">Administrasi Server</h3>
+          <p class="text-xs text-gray-500 dark:text-gray-400">Debian/Ubuntu Server, BIND9 DNS, Apache Web Server, DHCP, FTP, & Cloud.</p>
+        </div>
+        <div class="p-5 border border-gray-200 dark:border-white/10 rounded-lg bg-white/30 dark:bg-black/30">
+          <i class="fas fa-shield-alt text-purple-500 text-2xl mb-2"></i>
+          <h3 class="font-bold text-base mb-1">Virtualisasi & Keamanan</h3>
+          <p class="text-xs text-gray-500 dark:text-gray-400">VMware, VirtualBox, Firewall NAT/Filtering, VPN Tunnel, & Cloud Computing.</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="border-t border-gray-200 dark:border-white/10 py-6 text-center text-sm text-gray-500">
+    © 2026 Cyber of Zone (COZ). All rights reserved.
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="js/darkmode.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

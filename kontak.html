@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kontak - Cyber of Zone</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: { cyber: { black: '#0a0a0c', dark: '#121216', gray: '#1e1e24' } }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-cyber-black dark:text-white transition-colors duration-300 font-sans min-h-screen flex flex-col justify-between">
+
+  <!-- Header Navbar -->
+  <header class="sticky top-0 z-40 backdrop-blur-md bg-white/80 dark:bg-cyber-black/80 border-b border-gray-200 dark:border-white/10">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center space-x-3 font-mono font-bold text-lg">
+        <div class="w-10 h-10 bg-black dark:bg-white text-white dark:text-black flex items-center justify-center rounded">COZ</div>
+        <span>CYBER<span class="text-blue-500">ZONE</span></span>
+      </a>
+      <nav class="hidden md:flex space-x-6 text-sm font-medium">
+        <a href="index.html" class="hover:text-blue-500">Beranda</a>
+        <a href="profil.html" class="hover:text-blue-500">Profil</a>
+        <a href="materi.html" class="hover:text-blue-500">Materi TJKT</a>
+        <a href="kegiatan.html" class="hover:text-blue-500">Instalasi OS</a>
+        <a href="quiz.html" class="hover:text-blue-500">Quiz</a>
+        <a href="kontak.html" class="text-blue-500 font-semibold">Kontak</a>
+      </nav>
+      <div class="flex items-center space-x-3">
+        <button id="dark-mode-toggle" class="p-2 border rounded-lg border-gray-300 dark:border-white/20"><i id="theme-icon" class="fas fa-sun text-yellow-400"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contact Form Section -->
+  <main class="max-w-4xl mx-auto px-4 py-12 flex-grow w-full">
+    <div class="text-center mb-10" data-aos="fade-up">
+      <h1 class="text-3xl font-extrabold font-mono mb-2">// HUBUNGI CYBER OF ZONE</h1>
+      <p class="text-gray-500 dark:text-gray-400 text-sm">Ada pertanyaan, masukan materi, atau kolaborasi? Kirimkan pesanmu!</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Contact Info -->
+      <div class="p-6 border border-gray-200 dark:border-white/10 rounded-xl bg-white/50 dark:bg-cyber-dark/50" data-aos="fade-up">
+        <h2 class="text-xl font-bold font-mono mb-6">Media Sosial & Komunitas</h2>
+        
+        <div class="space-y-4 text-sm">
+          <a href="https://www.instagram.com/cyberozota?igsh=MW1hOHhiY3k1YmkxeQ==" target="_blank" class="flex items-center space-x-4 p-3 rounded border border-gray-200 dark:border-white/10 hover:border-pink-500 transition">
+            <i class="fab fa-instagram text-2xl text-pink-500"></i>
+            <div>
+              <p class="font-bold">Instagram Resmi</p>
+              <p class="text-xs text-gray-500">@cyberozota</p>
+            </div>
+          </a>
+
+          <div class="flex items-center space-x-4 p-3 rounded border border-gray-200 dark:border-white/10">
+            <i class="fas fa-envelope text-2xl text-blue-500"></i>
+            <div>
+              <p class="font-bold">Email Support</p>
+              <p class="text-xs text-gray-500">support@cyberzero.id</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Direct Form (Forwarding to WhatsApp) -->
+      <form id="contact-form" class="p-6 border border-gray-200 dark:border-white/10 rounded-xl bg-white/50 dark:bg-cyber-dark/50 space-y-4" data-aos="fade-up" data-aos-delay="100">
+        <div>
+          <label class="block text-xs font-mono mb-1">NAMA LENGKAP</label>
+          <input type="text" id="contact-name" required class="w-full p-2.5 rounded bg-gray-100 dark:bg-black/50 border border-gray-300 dark:border-white/10 outline-none focus:border-blue-500 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-mono mb-1">EMAIL</label>
+          <input type="email" id="contact-email" required class="w-full p-2.5 rounded bg-gray-100 dark:bg-black/50 border border-gray-300 dark:border-white/10 outline-none focus:border-blue-500 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-mono mb-1">PESAN / PERTANYAAN</label>
+          <textarea id="contact-message" rows="4" required class="w-full p-2.5 rounded bg-gray-100 dark:bg-black/50 border border-gray-300 dark:border-white/10 outline-none focus:border-blue-500 text-sm"></textarea>
+        </div>
+        <button type="submit" class="w-full py-3 bg-black dark:bg-white text-white dark:text-black font-mono font-bold text-sm rounded hover:opacity-90 transition">
+          <i class="fab fa-whatsapp mr-2"></i> Kirim Via WhatsApp
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <footer class="border-t border-gray-200 dark:border-white/10 py-6 text-center text-sm text-gray-500">
+    © 2026 Cyber of Zone (COZ). All rights reserved.
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="js/darkmode.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Handle Direct WhatsApp Forward
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('contact-name').value;
+      const email = document.getElementById('contact-email').value;
+      const msg = document.getElementById('contact-message').value;
+
+      // Nomor WA Admin COZ
+      const phoneNumber = "6285136629385"; 
+
+      const waText = `Halo Admin COZ,%0ANama: ${encodeURIComponent(name)}%0AEmail: ${encodeURIComponent(email)}%0APesan: ${encodeURIComponent(msg)}`;
+      
+      // Menggunakan nama variabel phoneNumber yang benar
+      window.open(`https://wa.me/${phoneNumber}?text=${waText}`, '_blank');
+    });
+  </script>
+</body>
+</html>
