@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyber of Zone (COZ) - Educational TJKT Platform</title>
+  <meta name="description" content="Platform Pembelajaran Terpadu Teknik Jaringan Komputer dan Telekomunikasi">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            cyber: {
+              black: '#0a0a0c',
+              dark: '#121216',
+              gray: '#1e1e24',
+              accent: '#ffffff',
+              glow: '#3b82f6'
+            }
+          },
+          fontFamily: {
+            mono: ['"JetBrains Mono"', 'monospace'],
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- AOS Animation CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-cyber-black dark:text-white transition-colors duration-300 font-sans min-h-screen flex flex-col justify-between overflow-x-hidden">
+
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="fixed inset-0 z-50 bg-cyber-black flex flex-col items-center justify-center transition-opacity duration-500">
+    <div class="w-16 h-16 border-4 border-white/20 border-t-white rounded-full animate-spin mb-4"></div>
+    <p class="font-mono text-sm tracking-widest text-gray-400 animate-pulse">CYBER OF ZONE // INITIALIZING...</p>
+  </div>
+
+  <!-- Sticky Navbar -->
+  <header class="sticky top-0 z-40 backdrop-blur-md bg-white/80 dark:bg-cyber-black/80 border-b border-gray-200 dark:border-white/10 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center space-x-3 group">
+        <div class="w-10 h-10 bg-black dark:bg-white text-white dark:text-black flex items-center justify-center font-bold font-mono text-xl rounded shadow-lg group-hover:scale-105 transition-transform">
+          COZ
+        </div>
+        <span class="font-bold text-lg tracking-wider font-mono hidden sm:inline-block">CYBER<span class="text-blue-500">ZONE</span></span>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center space-x-6 font-medium text-sm">
+        <a href="index.html" class="text-blue-500 font-semibold">Beranda</a>
+        <a href="profil.html" class="hover:text-blue-500 transition">Profil</a>
+        <a href="materi.html" class="hover:text-blue-500 transition">Materi TJKT</a>
+        <a href="kegiatan.html" class="hover:text-blue-500 transition">Instalasi OS</a>
+        <a href="quiz.html" class="hover:text-blue-500 transition">Quiz</a>
+        <a href="kontak.html" class="hover:text-blue-500 transition">Kontak</a>
+      </nav>
+
+      <!-- Action Buttons (Search & Dark Mode & Mobile Menu) -->
+      <div class="flex items-center space-x-3">
+        <!-- Search Trigger Button -->
+        <button id="search-btn" class="p-2 rounded-lg border border-gray-300 dark:border-white/20 hover:bg-gray-100 dark:hover:bg-white/10 transition" title="Cari Materi">
+          <i class="fas fa-search text-sm"></i>
+        </button>
+
+        <!-- Dark Mode Toggle Button -->
+        <button id="dark-mode-toggle" class="p-2 rounded-lg border border-gray-300 dark:border-white/20 hover:bg-gray-100 dark:hover:bg-white/10 transition" title="Toggle Theme">
+          <i id="theme-icon" class="fas fa-sun text-yellow-400"></i>
+        </button>
+
+        <!-- Mobile Menu Trigger -->
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg border border-gray-300 dark:border-white/20">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-cyber-dark border-b border-gray-200 dark:border-white/10 px-4 pt-2 pb-4 space-y-3 font-medium text-sm">
+      <a href="index.html" class="block py-2 text-blue-500">Beranda</a>
+      <a href="profil.html" class="block py-2">Profil COZ</a>
+      <a href="materi.html" class="block py-2">Materi TJKT</a>
+      <a href="kegiatan.html" class="block py-2">Instalasi OS</a>
+      <a href="quiz.html" class="block py-2">Quiz Interaktif</a>
+      <a href="kontak.html" class="block py-2">Kontak</a>
+    </div>
+  </header>
+
+  <!-- Global Search Overlay / Modal -->
+  <div id="search-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-start justify-center pt-20 px-4">
+    <div class="bg-white dark:bg-cyber-dark w-full max-w-2xl rounded-xl border border-gray-200 dark:border-white/20 p-6 shadow-2xl relative">
+      <button id="close-search" class="absolute top-4 right-4 text-gray-500 hover:text-white">
+        <i class="fas fa-times text-xl"></i>
+      </button>
+      <div class="flex items-center border-b border-gray-300 dark:border-white/20 pb-3 mb-4">
+        <i class="fas fa-search text-gray-400 mr-3"></i>
+        <input type="text" id="search-input" placeholder="Cari materi TJKT, OS, atau Quiz..." class="w-full bg-transparent outline-none font-mono text-base">
+      </div>
+      <div id="search-results" class="max-h-80 overflow-y-auto space-y-3 font-sm">
+        <p class="text-gray-400 text-xs italic">Ketikan kata kunci di atas untuk mulai mencari...</p>
+      </div>
+    </div>
+  </div>
+
+  <main class="flex-grow">
+    <!-- Hero Section -->
+    <section class="relative py-24 px-4 sm:px-6 lg:px-8 border-b border-gray-200 dark:border-white/10 overflow-hidden bg-grid-pattern">
+      <div class="max-w-5xl mx-auto text-center relative z-10" data-aos="fade-up">
+        <span class="inline-block px-3 py-1 mb-6 text-xs font-mono font-semibold rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400">
+          // CYBER OF ZONE (COZ)
+        </span>
+        <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight mb-6">
+          Pusat Belajar TJKT <br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-gray-600 to-black dark:from-white dark:via-gray-300 dark:to-gray-500">
+            Era Futuristik
+          </span>
+        </h1>
+        
+        <!-- Typing Text Effect Container -->
+        <p class="text-lg sm:text-xl font-mono text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-10 h-12">
+          <span id="typing-text"></span><span class="animate-pulse">|</span>
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="materi.html" class="w-full sm:w-auto px-8 py-3.5 bg-black dark:bg-white text-white dark:text-black font-medium rounded-lg hover:opacity-90 transition shadow-lg flex items-center justify-center space-x-2">
+            <span>Mulai Belajar</span>
+            <i class="fas fa-arrow-right text-xs"></i>
+          </a>
+          <a href="quiz.html" class="w-full sm:w-auto px-8 py-3.5 border border-gray-300 dark:border-white/20 hover:bg-gray-100 dark:hover:bg-white/10 rounded-lg font-medium transition flex items-center justify-center space-x-2">
+            <i class="fas fa-gamepad"></i>
+            <span>Uji Kemampuan (Quiz)</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Features Section -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-2xl sm:text-3xl font-bold font-mono">FITUR UTAMA PLATFORM</h2>
+        <p class="text-gray-500 dark:text-gray-400 text-sm mt-2">Didesain khusus untuk mempermudah siswa SMK Kejuruan TJKT</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Card 1 -->
+        <div class="p-6 rounded-xl border border-gray-200 dark:border-white/10 bg-white/50 dark:bg-cyber-dark/50 backdrop-blur hover:border-blue-500 transition duration-300" data-aos="fade-up" data-aos-delay="100">
+          <div class="w-12 h-12 bg-black dark:bg-white text-white dark:text-black rounded-lg flex items-center justify-center mb-6 font-mono font-bold text-xl">
+            01
+          </div>
+          <h3 class="text-xl font-bold mb-3">Materi Lengkap Fase E & F</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">
+            Rangkuman lengkap Kurikulum Merdeka dari Kelas 10 hingga Kelas 12 (Perakitan, Jaringan Dasar, AIJ, ASJ, Keamanan Siber & Cloud).
+          </p>
+          <a href="materi.html" class="text-xs font-mono font-semibold text-blue-500 hover:underline inline-flex items-center">
+            Eksplorasi Materi <i class="fas font-thin fa-chevron-right ml-1"></i>
+          </a>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="p-6 rounded-xl border border-gray-200 dark:border-white/10 bg-white/50 dark:bg-cyber-dark/50 backdrop-blur hover:border-blue-500 transition duration-300" data-aos="fade-up" data-aos-delay="200">
+          <div class="w-12 h-12 bg-black dark:bg-white text-white dark:text-black rounded-lg flex items-center justify-center mb-6 font-mono font-bold text-xl">
+            02
+          </div>
+          <h3 class="text-xl font-bold mb-3">Panduan Langkah OS</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">
+            Tutorial langkah demi langkah instalasi Windows, Linux (Debian, Ubuntu, Kali), Virtualization (VMware/VirtualBox), dan Bootable USB.
+          </p>
+          <a href="kegiatan.html" class="text-xs font-mono font-semibold text-blue-500 hover:underline inline-flex items-center">
+            Lihat Tutorial <i class="fas fa-chevron-right ml-1"></i>
+          </a>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="p-6 rounded-xl border border-gray-200 dark:border-white/10 bg-white/50 dark:bg-cyber-dark/50 backdrop-blur hover:border-blue-500 transition duration-300" data-aos="fade-up" data-aos-delay="300">
+          <div class="w-12 h-12 bg-black dark:bg-white text-white dark:text-black rounded-lg flex items-center justify-center mb-6 font-mono font-bold text-xl">
+            03
+          </div>
+          <h3 class="text-xl font-bold mb-3">Quiz Evaluasi Interaktif</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">
+            Uji pemahaman dengan 40+ bank soal pilihan ganda interaktif, sistem penilaian otomatis, timer, dan pembahasan jawaban mendalam.
+          </p>
+          <a href="quiz.html" class="text-xs font-mono font-semibold text-blue-500 hover:underline inline-flex items-center">
+            Coba Quiz Sekarang <i class="fas fa-chevron-right ml-1"></i>
+          </a>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Scroll to Top Button -->
+  <button id="scroll-to-top" class="fixed bottom-6 right-6 z-30 p-3 rounded-full bg-black dark:bg-white text-white dark:text-black shadow-2xl hidden transition hover:scale-110">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-200 dark:border-white/10 bg-white dark:bg-cyber-black py-8 text-sm text-gray-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-2 font-mono">
+        <span class="font-bold text-black dark:text-white">COZ</span>
+        <span>© 2026 Cyber of Zone. Dibuat oleh Siswa TJKT.</span>
+      </div>
+      <div class="flex space-x-6">
+        <a href="https://www.instagram.com/cyberozota?igsh=MW1hOHhiY3k1YmkxeQ==" target="_blank" class="hover:text-black dark:hover:text-white transition">
+          <i class="fab fa-instagram text-lg"></i> Instagram
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- External Libraries Script -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  
+  <!-- Custom JavaScript Files -->
+  <script src="js/darkmode.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
